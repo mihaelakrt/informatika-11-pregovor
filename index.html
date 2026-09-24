@@ -1,0 +1,1750 @@
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Преговор · Информатика 11 клас</title>
+<style>
+  :root{
+    --bg:#F3F5FB; --surface:#FFFFFF; --surface-2:#EFF2F9; --ink:#1E2333;
+    --muted:#697086; --line:#E4E8F2;
+    --java:#F97316; --java-bg:#FFF0E6; --sda:#0EA5E9; --sda-bg:#E4F4FE;
+    --c-idea:#6366F1; --c-idea-bg:#ECEEFE;
+    --c-syntax:#9333EA; --c-syntax-bg:#F5EBFE;
+    --c-example:#0EA372; --c-example-bg:#E1F6EF;
+    --c-facts:#E08600; --c-facts-bg:#FEF3DE;
+    --c-mist:#E23D4B; --c-mist-bg:#FDEBEC;
+    --code-bg:#F6F7FC; --code-ink:#2B3145; --code-line:#E4E8F2;
+    --hl-kw:#7C3AED; --hl-ty:#0E7490; --hl-str:#0E9F6E; --hl-num:#C2600C; --hl-com:#94A0B8;
+    --shadow:0 1px 2px rgba(30,40,80,.05),0 8px 24px rgba(30,40,80,.06);
+    --font:"Segoe UI Variable Display","Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
+    --mono:"Cascadia Code",Consolas,"SF Mono",ui-monospace,"JetBrains Mono",monospace;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --bg:#141824; --surface:#1C2130; --surface-2:#232A3B; --ink:#E8EBF4; --muted:#98A1B6; --line:#2C3550;
+    --java:#FB923C; --java-bg:#39271A; --sda:#38BDF8; --sda-bg:#122F3F;
+    --c-idea:#818CF8; --c-idea-bg:#222842;
+    --c-syntax:#C084FC; --c-syntax-bg:#2B2442;
+    --c-example:#34D399; --c-example-bg:#123029;
+    --c-facts:#FBBF24; --c-facts-bg:#332913;
+    --c-mist:#F87171; --c-mist-bg:#331E22;
+    --code-bg:#12161F; --code-ink:#D7DCEC; --code-line:#28324a;
+    --hl-kw:#C084FC; --hl-ty:#3DD6E8; --hl-str:#6EE7B7; --hl-num:#FBBF24; --hl-com:#647089;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.28);
+  }}
+  :root[data-theme="light"]{
+    --bg:#F3F5FB; --surface:#FFFFFF; --surface-2:#EFF2F9; --ink:#1E2333; --muted:#697086; --line:#E4E8F2;
+    --java:#F97316; --java-bg:#FFF0E6; --sda:#0EA5E9; --sda-bg:#E4F4FE;
+    --c-idea:#6366F1; --c-idea-bg:#ECEEFE; --c-syntax:#9333EA; --c-syntax-bg:#F5EBFE;
+    --c-example:#0EA372; --c-example-bg:#E1F6EF; --c-facts:#E08600; --c-facts-bg:#FEF3DE;
+    --c-mist:#E23D4B; --c-mist-bg:#FDEBEC;
+    --code-bg:#F6F7FC; --code-ink:#2B3145; --code-line:#E4E8F2;
+    --hl-kw:#7C3AED; --hl-ty:#0E7490; --hl-str:#0E9F6E; --hl-num:#C2600C; --hl-com:#94A0B8;
+    --shadow:0 1px 2px rgba(30,40,80,.05),0 8px 24px rgba(30,40,80,.06);
+  }
+  :root[data-theme="dark"]{
+    --bg:#141824; --surface:#1C2130; --surface-2:#232A3B; --ink:#E8EBF4; --muted:#98A1B6; --line:#2C3550;
+    --java:#FB923C; --java-bg:#39271A; --sda:#38BDF8; --sda-bg:#122F3F;
+    --c-idea:#818CF8; --c-idea-bg:#222842; --c-syntax:#C084FC; --c-syntax-bg:#2B2442;
+    --c-example:#34D399; --c-example-bg:#123029; --c-facts:#FBBF24; --c-facts-bg:#332913;
+    --c-mist:#F87171; --c-mist-bg:#331E22;
+    --code-bg:#12161F; --code-ink:#D7DCEC; --code-line:#28324a;
+    --hl-kw:#C084FC; --hl-ty:#3DD6E8; --hl-str:#6EE7B7; --hl-num:#FBBF24; --hl-com:#647089;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.28);
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .app{display:grid;grid-template-columns:290px 1fr;min-height:100vh}
+
+  /* sidebar */
+  .side{background:var(--surface);border-right:1px solid var(--line);position:sticky;top:0;height:100vh;
+    display:flex;flex-direction:column;overflow:hidden}
+  .brand{padding:20px 20px 16px;display:flex;gap:13px;align-items:center;border-bottom:1px solid var(--line)}
+  .brand .mark{width:42px;height:42px;border-radius:12px;flex:none;display:grid;place-items:center;color:#fff;font-weight:800;font-size:20px;
+    background:linear-gradient(135deg,var(--java),var(--sda))}
+  .brand h1{margin:0;font-size:17px;font-weight:800;letter-spacing:-.2px}
+  .brand p{margin:1px 0 0;font-size:12.5px;color:var(--muted)}
+  .search{padding:14px 16px 8px}
+  .search input{width:100%;padding:10px 13px;border-radius:11px;border:1px solid var(--line);background:var(--surface-2);
+    color:var(--ink);font:inherit;font-size:14px}
+  .search input:focus{outline:2px solid var(--sda);outline-offset:1px;border-color:transparent}
+  .nav{overflow-y:auto;padding:4px 12px 26px;flex:1}
+  .glabel{display:flex;align-items:center;gap:9px;margin:16px 8px 8px;font-size:12px;font-weight:800;letter-spacing:.7px;text-transform:uppercase}
+  .glabel .bar{width:22px;height:5px;border-radius:3px}
+  .g-java{color:var(--java)} .g-java .bar{background:var(--java)}
+  .g-sda{color:var(--sda)} .g-sda .bar{background:var(--sda)}
+  .leaf{display:flex;gap:10px;align-items:baseline;width:100%;text-align:left;border:0;background:transparent;color:var(--ink);
+    font:inherit;font-size:14px;padding:8px 11px;border-radius:9px;cursor:pointer;line-height:1.3}
+  .leaf .n{font-size:11px;color:var(--muted);min-width:17px;font-variant-numeric:tabular-nums}
+  .leaf:hover{background:var(--surface-2)}
+  .leaf:focus-visible{outline:2px solid var(--sda);outline-offset:-2px}
+  .leaf.on{background:var(--sda-bg);color:var(--sda);font-weight:700}
+  .leaf.on.j{background:var(--java-bg);color:var(--java)}
+  .leaf.on .n{color:inherit;opacity:.7}
+
+  /* main */
+  .main{min-width:0;display:flex;flex-direction:column}
+  .topbar{display:none;align-items:center;gap:12px;padding:11px 15px;background:var(--surface);border-bottom:1px solid var(--line);
+    position:sticky;top:0;z-index:6}
+  .iconbtn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;width:40px;height:40px;
+    font-size:17px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+  .iconbtn:hover{background:var(--surface-2)}
+  .content{max-width:880px;width:100%;margin:0 auto;padding:40px 34px 90px}
+
+  /* home */
+  .home .kicker{display:inline-block;font-size:12.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+    color:var(--sda);background:var(--sda-bg);padding:5px 12px;border-radius:999px;margin-bottom:16px}
+  .home h2{font-size:38px;line-height:1.1;margin:0 0 14px;font-weight:800;letter-spacing:-.6px}
+  .home h2 .hl{background:linear-gradient(120deg,var(--java),var(--sda));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .home .lead{font-size:17px;color:var(--muted);max-width:58ch;margin:0 0 30px}
+  .subs{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media (max-width:640px){.subs{grid-template-columns:1fr}}
+  .subcard{border:1px solid var(--line);border-radius:16px;padding:20px;background:var(--surface);box-shadow:var(--shadow);
+    border-top:4px solid var(--java)}
+  .subcard.s{border-top-color:var(--sda)}
+  .subcard h3{margin:0 0 5px;font-size:16px;font-weight:800}
+  .subcard.j h3{color:var(--java)} .subcard.s h3{color:var(--sda)}
+  .subcard p{margin:0 0 14px;font-size:14px;color:var(--muted)}
+  .subcard .cnt{font-size:13px;font-weight:700;color:var(--ink)}
+  .subcard .go{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px}
+  .pill{font-size:12px;padding:4px 10px;border-radius:999px;background:var(--surface-2);color:var(--muted)}
+  .home .note{margin-top:26px;font-size:14px;color:var(--muted);background:var(--surface-2);border-radius:14px;padding:16px 18px}
+  .home .note b{color:var(--ink)}
+
+  /* topic */
+  .chip{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;
+    padding:6px 13px;border-radius:999px}
+  .chip.j{background:var(--java-bg);color:var(--java)} .chip.s{background:var(--sda-bg);color:var(--sda)}
+  .chip .d{width:8px;height:8px;border-radius:50%;background:currentColor}
+  .thead h2{font-size:31px;line-height:1.12;margin:15px 0 9px;font-weight:800;letter-spacing:-.4px;text-wrap:balance}
+  .fileref{font-size:12.5px;color:var(--muted);font-family:var(--mono);background:var(--surface-2);padding:6px 11px;border-radius:8px;
+    display:inline-block;word-break:break-all}
+
+  .sec{margin-top:20px;background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+  .sec .lbl{display:flex;align-items:center;gap:10px;padding:13px 18px 0;font-size:12.5px;font-weight:800;letter-spacing:.8px;text-transform:uppercase}
+  .sec .lbl .ic{width:24px;height:24px;border-radius:8px;display:grid;place-items:center;font-size:14px;color:#fff;font-weight:800}
+  .sec .in{padding:11px 18px 18px}
+  .sec--idea{border-left:4px solid var(--c-idea)} .sec--idea .lbl{color:var(--c-idea)} .sec--idea .ic{background:var(--c-idea)}
+  .sec--syntax{border-left:4px solid var(--c-syntax)} .sec--syntax .lbl{color:var(--c-syntax)} .sec--syntax .ic{background:var(--c-syntax)}
+  .sec--example{border-left:4px solid var(--c-example)} .sec--example .lbl{color:var(--c-example)} .sec--example .ic{background:var(--c-example)}
+  .sec--facts{border-left:4px solid var(--c-facts)} .sec--facts .lbl{color:var(--c-facts)} .sec--facts .ic{background:var(--c-facts)}
+  .sec--mist{border-left:4px solid var(--c-mist)} .sec--mist .lbl{color:var(--c-mist)} .sec--mist .ic{background:var(--c-mist)}
+  .idea-txt{font-size:15.5px;line-height:1.7;margin:0}
+
+  pre.code{margin:0;background:var(--code-bg);border:1px solid var(--code-line);border-radius:11px;padding:14px 16px;overflow-x:auto}
+  pre.code code{font-family:var(--mono);font-size:13.5px;line-height:1.7;color:var(--code-ink);white-space:pre;display:block}
+  .ln{color:var(--muted);opacity:.55;user-select:none}
+  .c-kw{color:var(--hl-kw);font-weight:600} .c-ty{color:var(--hl-ty)} .c-str{color:var(--hl-str)}
+  .c-num{color:var(--hl-num)} .c-com{color:var(--hl-com);font-style:italic}
+  .excap{font-size:13px;color:var(--muted);margin:0 0 9px}
+
+  ul.facts,ul.mist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+  ul.facts li{position:relative;padding:2px 0 2px 26px;font-size:14.5px;line-height:1.55}
+  ul.facts li:before{content:"";position:absolute;left:4px;top:9px;width:9px;height:9px;border-radius:3px;background:var(--c-facts);transform:rotate(45deg)}
+  ul.mist li{position:relative;padding:9px 13px 9px 38px;font-size:14px;background:var(--c-mist-bg);border-radius:10px}
+  ul.mist li:before{content:"!";position:absolute;left:14px;top:9px;color:#fff;background:var(--c-mist);width:18px;height:18px;border-radius:50%;
+    display:grid;place-items:center;font-size:12px;font-weight:800}
+  code.inl{font-family:var(--mono);font-size:.88em;background:var(--surface-2);color:var(--c-syntax);padding:1px 6px;border-radius:6px}
+  ul.mist code.inl{background:rgba(0,0,0,.06)}
+  @media (prefers-color-scheme:dark){ul.mist code.inl{background:rgba(255,255,255,.1)}}
+
+  .sec--task{border-left:4px solid var(--sda)} .sec--task .lbl{color:var(--sda)} .sec--task .ic{background:var(--sda)}
+  .task{padding:15px 0;border-bottom:1px dashed var(--line)}
+  .task:first-child{padding-top:2px} .task:last-child{border-bottom:0;padding-bottom:2px}
+  .tnum{display:inline-block;font-size:12px;font-weight:800;color:var(--sda);background:var(--sda-bg);padding:3px 11px;border-radius:999px;margin-bottom:9px}
+  .tq{margin:0 0 4px;font-size:15px;font-weight:600;line-height:1.5}
+  .tlabel{font-size:11.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;margin:12px 0 5px}
+  .tlabel.algo{color:var(--c-idea)} .tlabel.sol{color:var(--c-example)}
+  .algo-txt{margin:0;white-space:pre-wrap;font-size:14.5px;line-height:1.6}
+  pre.sol{margin:0;background:var(--code-bg);border:1px solid var(--code-line);border-radius:10px;padding:12px 15px;overflow-x:auto;
+    font-family:var(--mono);font-size:13px;line-height:1.65;color:var(--code-ink);white-space:pre}
+  .backdrop{display:none}
+  @media (max-width:880px){
+    .app{grid-template-columns:1fr}
+    .topbar{display:flex}
+    .side{position:fixed;top:0;left:0;z-index:40;width:290px;transform:translateX(-100%);transition:transform .26s ease;box-shadow:0 0 50px rgba(0,0,0,.25)}
+    .app.open .side{transform:translateX(0)}
+    .backdrop{display:block;position:fixed;inset:0;background:rgba(15,20,40,.4);z-index:30;opacity:0;pointer-events:none;transition:opacity .26s}
+    .app.open .backdrop{opacity:1;pointer-events:auto}
+    .content{padding:26px 18px 80px}
+    .home h2{font-size:29px}.thead h2{font-size:25px}
+  }
+  @media (prefers-reduced-motion:reduce){.side{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="app" id="app">
+  <div class="backdrop" id="backdrop"></div>
+  <aside class="side" id="side">
+    <div class="brand">
+      <div class="mark">И</div>
+      <div><h1>Преговор</h1><p>Информатика · 11. клас</p></div>
+    </div>
+    <div class="search"><input id="search" type="search" placeholder="Търси тема…" aria-label="Търси тема"></div>
+    <nav class="nav" id="nav"></nav>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <button class="iconbtn" id="menuBtn" aria-label="Меню">☰</button>
+      <strong style="flex:1">Преговор</strong>
+      <button class="iconbtn" id="themeBtn" aria-label="Смени тема">◐</button>
+    </div>
+    <div class="content" id="content"></div>
+  </main>
+</div>
+
+<script>
+const TOPICS=[
+{id:"numsys",subj:"java",title:"Бройни системи",path:"01-Въведение в информатиката/1.4-Превръщане в различни бройни системи.pdf",
+ idea:"Бройната система определя как записваме числата — чрез множество от цифри и основа (база), която е броят на различните цифри. Десетичната има основа 10 (цифри 0–9); двоичната — основа 2 (само 0 и 1) и е в основата на компютъра; осмичната — основа 8; шестнадесетичната — основа 16 (цифри 0–9 и A–F). Най-голямата цифра в система с основа K е K−1.",
+ syntaxLabel:"Алгоритми за преобразуване",
+ syntax:`Десетична  ->  основа K
+  Делим целочислено на K и записваме остатъка.
+  Повтаряме с частното, докато то стане 0.
+  Остатъците се четат в ОБРАТЕН ред.
+
+Основа K  ->  десетична
+  Всяка цифра се умножава по K на степен според позицията
+  (най-дясната по K^0, следващата по K^1, ...) и се сумира.
+
+Двоична  <->  осмична           групи по 3 цифри
+Двоична  <->  шестнадесетична    групи по 4 цифри
+  (групирането започва отдясно; вътрешните групи се допълват с 0)`,
+ exampleLabel:"Примери",
+ example:`88 -> осмична:   88:8=11 ост.0 | 11:8=1 ост.3 | 1:8=0 ост.1
+   отдолу нагоре ->  88 = 130(8)
+
+12A(16) -> десетична:  A*16^0 + 2*16^1 + 1*16^2
+   = 10 + 32 + 256 = 298(10)
+
+173(8) -> двоична:  1=1, 7=111, 3=011  ->  1111011(2)
+11100011(2) -> осмична:  11|100|011 -> 3 4 3  ->  343(8)
+2A3(16) -> двоична:  2=10, A=1010, 3=0011  ->  1010100011(2)`,
+ facts:["Основа (база) = броят различни цифри; най-голямата цифра е основа − 1.","Двоична: 0,1 | осмична: 0–7 | шестнадесетична: 0–9 и A(10)…F(15).","Стойност на число: сума от цифра · (основа)^позиция; позициите започват от 0 отдясно.","1 бит = 1 двоична цифра; 8 бита = 1 байт; 16 = половин дума; 32 = дума; 64 = двойна дума.","Двоична ↔ осмична — групи по 3 цифри; двоична ↔ шестнадесетична — по 4 цифри.","Символите се кодират в 8 бита (напр. 'A' = 65 = 01000001).","В поле с фиксиран размер числото се допълва отляво с нули; най-левият бит може да е знак (0 = +, 1 = −)."],
+ mistakes:["Четене на остатъците в реда на получаване вместо в ОБРАТЕН ред.","Непълни вътрешни групи при групиране по 3/4 — забравени водещи нули.","Грешна позиционна степен — най-дясната цифра е на степен 0, не 1.","Използване на невалидна цифра за основата (напр. 8 в осмична, G в шестнадесетична)."],
+ tasks:[
+  {q:"Намерете десетичното представяне на двоичното число 11101110.",
+   algo:"Позиционен метод: всяка цифра се умножава по 2 на степен, равна на позицията ѝ (най-дясната е позиция 0); сумираме позициите с цифра 1.",
+   sol:"11101110(2)\n= 2^1 + 2^2 + 2^3 + 2^5 + 2^6 + 2^7\n= 2 + 4 + 8 + 32 + 64 + 128\n= 238(10)"},
+  {q:"Намерете десетичното представяне на 11110111 и 10101011.",
+   algo:"Същият позиционен метод — сумиране на степените на 2 за позициите с 1.",
+   sol:"11110111(2) = 1+2+4+16+32+64+128 = 247(10)\n10101011(2) = 1+2+8+32+128     = 171(10)"},
+  {q:"Представете 11101110, 11110111 и 10101011 в шестнадесетична БС.",
+   algo:"Групиране по 4: двоичните цифри се групират по четворки отдясно; всяка четворка се заменя с една шестнадесетична цифра по таблицата.",
+   sol:"1110 1110 -> E E -> EE(16)\n1111 0111 -> F 7 -> F7(16)\n1010 1011 -> A B -> AB(16)"},
+  {q:"Представете десетичните числа 177, 159 и 225 в двоична и шестнадесетична БС.",
+   algo:"Десетична -> двоична: последователно целочислено деление на 2, остатъците в обратен ред. После двоичното се групира по 4 за шестнадесетичното.",
+   sol:"177 = 10110001(2) = B1(16)\n159 = 10011111(2) = 9F(16)\n225 = 11100001(2) = E1(16)"},
+  {q:"Преобразувайте от шестнадесетична в двоична: FACE, ACE, 2017, ABCD.",
+   algo:"Всяка шестнадесетична цифра се заменя с 4 двоични цифри (по таблицата), като се запазва редът.",
+   sol:"FACE = 1111 1010 1100 1110\nACE  = 1010 1100 1110\n2017 = 0010 0000 0001 0111\nABCD = 1010 1011 1100 1101"},
+  {q:"Преобразувайте от осмична в двоична: 171, 121, 5051, 24.",
+   algo:"Всяка осмична цифра се заменя с 3 двоични цифри (по таблицата).",
+   sol:"171(8)  = 001 111 001 = 1111001(2)\n121(8)  = 001 010 001 = 1010001(2)\n5051(8) = 101 000 101 001(2)\n24(8)   = 010 100     = 10100(2)"},
+  {q:"Преобразувайте от двоична в осмична: 10, 111, 1000, 10101.",
+   algo:"Групиране по 3 цифри отдясно наляво; всяка тройка -> една осмична цифра.",
+   sol:"10    -> 2(8)\n111   -> 7(8)\n1000  -> 1 000  -> 10(8)\n10101 -> 10 101 -> 25(8)"},
+  {q:"Преобразувайте от двоична в шестнадесетична: 101001, 101111, 1000, 111.",
+   algo:"Групиране по 4 цифри отдясно наляво; всяка четворка -> една шестнадесетична цифра.",
+   sol:"101001 -> 10 1001 -> 29(16)\n101111 -> 10 1111 -> 2F(16)\n1000   -> 8(16)\n111    -> 7(16)"},
+  {q:"Кои от числата НЕ са в шестнадесетична БС: FACES, ABCD, 1007, М16A?",
+   algo:"Валидните шестнадесетични цифри са 0–9 и A–F. Търсим символ извън този набор.",
+   sol:"FACES -> съдържа S (невалидна) -> НЕ е шестнадесетично\nМ16A  -> съдържа М (невалидна) -> НЕ е шестнадесетично\nABCD и 1007 -> валидни"},
+  {q:"Намерете броя на единиците в двоичното представяне на 3DA6, F83A и 789B.",
+   algo:"Всяка шестнадесетична цифра -> 4 двоични цифри; после броим единиците.",
+   sol:"3DA6 = 0011 1101 1010 0110 -> 9 единици\nF83A = 1111 1000 0011 1010 -> 9 единици\n789B = 0111 1000 1001 1011 -> 9 единици"},
+  {q:"Колко най-малко байта са нужни за двоичното представяне на 8, 126, 255, 1024? (1 байт = 8 бита)",
+   algo:"Намираме броя битове, нужни за числото, и закръгляме нагоре до цял брой байтове.",
+   sol:"8    = 1000         -> 4 бита  -> 1 байт\n126  = 1111110      -> 7 бита  -> 1 байт\n255  = 11111111     -> 8 бита  -> 1 байт\n1024 = 10000000000  -> 11 бита -> 2 байта"},
+  {q:"Кое е най-голямото число, което може да се представи с 3, 5, 8 и 10 бита?",
+   algo:"С n бита най-голямото число е с всички единици; стойността му е 2^n − 1.",
+   sol:"3 бита : 111 = 7\n5 бита : 2^5 − 1  = 31\n8 бита : 2^8 − 1  = 255\n10 бита: 2^10 − 1 = 1023"},
+  {q:"Сравнете 8-битовите числа без превръщане: A = 00011011, B = 00011101.",
+   algo:"Сравняваме побитово отляво надясно; при първата различна цифра числото с 1 е по-голямо.",
+   sol:"A = 00011011\nB = 00011101\nПървата разлика (6-та цифра): A=0, B=1 -> A < B"},
+  {q:"Запишете десетичното число 76 в двоична БС с 8 бита.",
+   algo:"Последователно целочислено деление на 2; остатъците в обратен ред; допълваме отляво с нули до 8 разреда.",
+   sol:"76 = 64 + 8 + 4 = 1001100(2)\nВ 8 бита -> 01001100"}
+ ]},
+{id:"conditions",subj:"java",title:"Условни конструкции",path:"03-Условни конструкции/3.2-Условни конструкции.pdf",
+ idea:"Условните конструкции карат програмата да изпълни различни действия според истинността на логическо (boolean) условие. Формите са: кратка (само if), пълна (if–else), серия проверки (else if) и switch за многовариантен избор по стойност на една променлива.",
+ syntax:`if (условие) оператор1;
+else оператор2;
+
+// серия проверки
+if (условие1) { ... }
+else if (условие2) { ... }
+else { ... }
+
+// многовариантен избор
+switch (израз) {
+    case стойност1: ... ; break;
+    default: ... ;
+}`,
+ exCap:"Въвеждаме оценка и проверяваме дали е отлична (>= 5.50).",
+ example:`Scanner input = new Scanner(System.in);
+double grade = input.nextDouble();
+if (grade >= 5.50)
+    System.out.println("Excellent!");
+else
+    System.out.println("Not Excellent.");`,
+ facts:["Оператори за сравнение: <, >, <=, >=, == (равно), != (различно).","Логически операции: && (И), || (ИЛИ), ! (НЕ).","switch се ползва, когато решението зависи от стойността на една променлива; всеки case завършва с break.","Кратка форма — действие само при истина; пълна (else) — действие и в двата случая.","Променлива, декларирана в блок { }, съществува само до затварящата скоба на блока."],
+ mistakes:["`=` (присвояване) вместо `==` (сравнение).","Липсващи `{ }` при повече от един оператор — само първият влиза в тялото.","Забравен `break;` в switch — изпълнението пропада в следващите case.","Достъп до променлива извън блока, в който е декларирана."],
+ tasks:[
+  {q:"Въвеждат се две числа. Ако са различни, изведи по-голямото; иначе изведи „ravni“.",
+   algo:"Пълна форма if-else. Първо проверяваме за равенство (отделен случай), после кое е по-голямо.",
+   sol:`double a = input.nextDouble();
+double b = input.nextDouble();
+if (a == b)
+    System.out.println("ravni");
+else if (a > b)
+    System.out.println(a);
+else
+    System.out.println(b);`},
+  {q:"Въвежда се число n. Изведи правилното от: n>100, n<100 или n=100.",
+   algo:"Серия проверки (else if) по трите взаимно изключващи се случая.",
+   sol:`if (n > 100)      System.out.println("n>100");
+else if (n < 100) System.out.println("n<100");
+else              System.out.println("n=100");`},
+  {q:"Въвежда се цяло число [0..9] и се изписва с думи на английски. Извън диапазона → out of range.",
+   algo:"Първо проверка за диапазон, после многовариантен избор switch по стойността.",
+   sol:`if (n < 0 || n > 9)
+    System.out.println("out of range");
+else switch (n) {
+    case 0: System.out.println("zero"); break;
+    case 1: System.out.println("one");  break;
+    // ... case 2 ... 8 ...
+    case 9: System.out.println("nine"); break;
+}`},
+  {q:"Дадени са страна на равностранен триъгълник и страна на квадрат. Изведи коя фигура има по-голям периметър (при равни — нищо).",
+   algo:"Пресмятаме периметрите (3·a и 4·b) и ги сравняваме с if-else if; при равенство няма изход.",
+   sol:`double a = input.nextDouble();   // триъгълник
+double b = input.nextDouble();   // квадрат
+double pt = 3 * a, pk = 4 * b;
+if (pk > pt)      System.out.println("квадрат");
+else if (pt > pk) System.out.println("триъгълник");
+// при равни периметри няма изход`},
+  {q:"Върху брой точки се начисляват бонуси: ≤100 → +5; (100;1000] → 20%; >1000 → 10%. Допълнително: четно → +1, завършва на 5 → +2. Изведи бонуса и общата сума.",
+   algo:"else-if за основния бонус (взаимно изключващи се случаи) + два независими if за допълнителните бонуси.",
+   sol:`double bonus;
+if (points <= 100)       bonus = 5;
+else if (points <= 1000) bonus = 0.20 * points;
+else                     bonus = 0.10 * points;
+
+if (points % 2 == 0)  bonus += 1;   // четно число
+if (points % 10 == 5) bonus += 2;   // завършва на 5
+
+System.out.println(bonus);
+System.out.println(points + bonus);`},
+  {q:"Прочети ден от седмицата (на английски) и изведи Working day / Weekend / Error.",
+   algo:"switch по деня; работните дни групираме в общи case (пропадане до общ println), уикендът отделно, а неразпознат текст отива в default.",
+   sol:`switch (day) {
+    case "Monday": case "Tuesday": case "Wednesday":
+    case "Thursday": case "Friday":
+        System.out.println("Working day"); break;
+    case "Saturday": case "Sunday":
+        System.out.println("Weekend"); break;
+    default:
+        System.out.println("Error");
+}`},
+  {q:"По име на животно изведи класа му: dog → mammal; crocodile/tortoise/snake → reptile; друго → unknown (без значение от главни/малки букви).",
+   algo:"Първо привеждаме към малки букви с toLowerCase, после switch с групиране на влечугите в общи case.",
+   sol:`switch (animal.toLowerCase()) {
+    case "dog":
+        System.out.println("mammal"); break;
+    case "crocodile": case "tortoise": case "snake":
+        System.out.println("reptile"); break;
+    default:
+        System.out.println("unknown");
+}`},
+  {q:"По възраст и пол ('m'/'f') изведи обръщение: Mr./Master (мъж ≥16 / <16), Ms./Miss (жена ≥16 / <16).",
+   algo:"Вложено разклонение: външното е по пол, вътрешното — по възраст (праг 16).",
+   sol:`if (gender == 'm')
+    System.out.println(age >= 16 ? "Mr." : "Master");
+else
+    System.out.println(age >= 16 ? "Ms." : "Miss");`},
+  {q:"Провери дали точка (x,y) е Inside / Border / Outside на правоъгълник, зададен с два противоположни върха.",
+   algo:"Нормализираме границите с Math.min/max. Строго вътре → Inside; ако е в затворения интервал (по контура) → Border; иначе Outside.",
+   sol:`double minX = Math.min(x1, x2), maxX = Math.max(x1, x2);
+double minY = Math.min(y1, y2), maxY = Math.max(y1, y2);
+if (x > minX && x < maxX && y > minY && y < maxY)
+    System.out.println("Inside");
+else if (x >= minX && x <= maxX && y >= minY && y <= maxY)
+    System.out.println("Border");
+else
+    System.out.println("Outside");`},
+  {q:"Дадено е четирицифрено число. Провери дали се дели на всяка от цифрите си (без 0) и дали се дели на сумата от цифрите си.",
+   algo:"Извличаме четирите цифри с целочислено деление и остатък. Делимостта на всяка ненулева цифра проверяваме с %, а сумата от цифрите — отделно.",
+   sol:`int d1 = n/1000, d2 = n/100 % 10, d3 = n/10 % 10, d4 = n % 10;
+boolean byDigits =
+       (d1 == 0 || n % d1 == 0) && (d2 == 0 || n % d2 == 0)
+    && (d3 == 0 || n % d3 == 0) && (d4 == 0 || n % d4 == 0);
+int s = d1 + d2 + d3 + d4;
+System.out.println(byDigits ? "дели се на цифрите си" : "не се дели на всички цифри");
+System.out.println(n % s == 0 ? "дели се на сумата от цифрите" : "не се дели на сумата");`}
+ ]},
+
+{id:"loops",subj:"java",title:"Циклични конструкции",path:"04-Циклични конструкции/4.1-Цикли в Java.pdf",
+ idea:"Циклите повтарят тяло, докато е изпълнено условие. for е за известен брой повторения, while — с предусловие, а do–while — със следусловие (тялото се изпълнява поне веднъж). Вложени цикли са цикъл в тялото на друг цикъл.",
+ syntax:`for (израз1; израз2; израз3) { тяло }
+// израз1 – инициализация; израз2 – условие за край; израз3 – корекция
+
+while (условие) { тяло }
+
+do { тяло } while (условие);`,
+ exCap:"Отпечатване на числата от 1 до 10.",
+ example:`for (int i = 1; i <= 10; i = i + 1)
+    System.out.println("i=" + i);`,
+ facts:["Трите израза в for: инициализация; условие за край; корекция на управляващата променлива.","Управляващата променлива на for НЕ може да е от тип double.","while проверява условието ПРЕДИ тялото; do–while — СЛЕД тялото.","do–while гарантира поне едно изпълнение на тялото.","break прекратява цикъла веднага; програмата продължава след него.","Безкраен цикъл: while(true) или for(;;) без изход.","При вложени цикли за всяко изпълнение на външния вътрешният се изпълнява изцяло."],
+ mistakes:["Ако началната стойност още не отговаря на условието, тялото може да не се изпълни нито веднъж.","Забравена корекция или условие, което винаги е true → безкраен цикъл.","Управляваща променлива от тип double при for.","Разместени условие/корекция → грешен брой итерации."],
+ tasks:[
+  {q:"Изведи целите числа от интервала [0;100], които завършват на цифра 7.",
+   algo:"for обхожда целия интервал; проверяваме последната цифра с остатъка n % 10 == 7.",
+   sol:`for (int n = 0; n <= 100; n++)
+    if (n % 10 == 7)
+        System.out.println(n);`},
+  {q:"Въведи 8 числа и определи броя на положителните.",
+   algo:"Брояч count, който се увеличава при всяко число > 0.",
+   sol:`int count = 0;
+for (int i = 1; i <= 8; i++) {
+    double number = input.nextDouble();
+    if (number > 0) count++;
+}
+System.out.println("Положителни: " + count);`},
+  {q:"Въведи N и още N числа. Намери сумата им.",
+   algo:"Акумулатор sum, към който добавяме всяко въведено число в цикъла.",
+   sol:`int N = input.nextInt();
+double sum = 0;
+for (int i = 1; i <= N; i++)
+    sum += input.nextDouble();
+System.out.println("Сума: " + sum);`},
+  {q:"Изведи броя на трицифрените числа, които се делят на 23.",
+   algo:"Обхождаме интервала на трицифрените числа [100;999]; брояч за тези с остатък n % 23 == 0.",
+   sol:`int count = 0;
+for (int n = 100; n <= 999; n++)
+    if (n % 23 == 0) count++;
+System.out.println(count);`},
+  {q:"Въведи n числа и намери най-голямото от тях.",
+   algo:"Инициализираме max с първото число; при всяко следващо, ако е по-голямо, обновяваме max.",
+   sol:`int N = input.nextInt();
+int max = input.nextInt();        // първото число
+for (int i = 2; i <= N; i++) {
+    int number = input.nextInt();
+    if (number > max) max = number;
+}
+System.out.println("Max=" + max);`},
+  {q:"Въведи X оценки и намери средния успех, като некоректните (<2 или >6) не участват.",
+   algo:"Сумираме само коректните оценки и броим ги; накрая делим сумата на броя (ако има поне една).",
+   sol:`int X = input.nextInt();
+double sum = 0; int cnt = 0;
+for (int i = 1; i <= X; i++) {
+    double g = input.nextDouble();
+    if (g >= 2 && g <= 6) { sum += g; cnt++; }
+}
+if (cnt > 0)
+    System.out.println("Среден успех: " + (sum / cnt));`},
+  {q:"Дадени са n числа. Изведи какъв процент от тях се делят на 2, на 3 и на 4 (с 2 знака след запетаята).",
+   algo:"Три брояча — по един за всяко деление. Процентът е брояч·100/n. Форматираме с printf и %.2f.",
+   sol:`int c2 = 0, c3 = 0, c4 = 0;
+for (int i = 0; i < n; i++) {
+    int x = input.nextInt();
+    if (x % 2 == 0) c2++;
+    if (x % 3 == 0) c3++;
+    if (x % 4 == 0) c4++;
+}
+System.out.printf("%.2f%%%n", 100.0 * c2 / n);
+System.out.printf("%.2f%%%n", 100.0 * c3 / n);
+System.out.printf("%.2f%%%n", 100.0 * c4 / n);`},
+  {q:"За N студенти се въвеждат ръст и пол (male/female). Изведи min, max и среден ръст за всеки пол; при липса на данни — „no data“.",
+   algo:"Отделни акумулатори (сума, брой, min, max) за всеки пол. Според пола обновяваме съответната група; накрая проверяваме дали групата има данни.",
+   sol:`double maxM = -1, minM = 1e9, sumM = 0; int cM = 0;
+double maxF = -1, minF = 1e9, sumF = 0; int cF = 0;
+for (int i = 0; i < N; i++) {
+    double h = input.nextDouble();
+    String g = input.next();
+    if (g.equals("male")) {
+        sumM += h; cM++;
+        if (h > maxM) maxM = h;
+        if (h < minM) minM = h;
+    } else {
+        sumF += h; cF++;
+        if (h > maxF) maxF = h;
+        if (h < minF) minF = h;
+    }
+}
+if (cM > 0) System.out.printf("Male – min=%.2f max=%.2f avg=%.2f%n", minM, maxM, sumM/cM);
+else        System.out.println("Male – no data");
+// аналогично за female (minF, maxF, sumF, cF)`},
+  {q:"По тонаж на товари: ≤3т → микробус (200/т), 3–11т → камион (175/т), >11т → влак (120/т). Изведи средната цена на тон и процента товар с всяко превозно средство.",
+   algo:"Натрупваме общ тонаж и обща цена; отделно броим тоновете по категория. Средна цена = обща цена / общ тонаж; процент = тонове_категория·100 / общ тонаж.",
+   sol:`double sumT = 0, sumCost = 0, van = 0, truck = 0, train = 0;
+for (int i = 0; i < n; i++) {
+    int t = input.nextInt();
+    sumT += t;
+    if (t <= 3)       { sumCost += t*200; van   += t; }
+    else if (t <= 11) { sumCost += t*175; truck += t; }
+    else              { sumCost += t*120; train += t; }
+}
+System.out.printf("%.2f%n",   sumCost / sumT);
+System.out.printf("%.2f%%%n", 100 * van   / sumT);
+System.out.printf("%.2f%%%n", 100 * truck / sumT);
+System.out.printf("%.2f%%%n", 100 * train / sumT);`},
+  {q:"Проверка на n отворени таба. Глоби: Facebook 150, Instagram 100, Reddit 50. Ако заплатата стане ≤ 0 → „You have lost your salary.“ и край; иначе изведи остатъка.",
+   algo:"Намаляваме заплатата според сайта. Ако падне до 0 или под 0 — извеждаме съобщение и прекъсваме цикъла с break (флаг lost помни, че сме излезли предсрочно).",
+   sol:`double salary = input.nextInt();
+boolean lost = false;
+for (int i = 0; i < n; i++) {
+    String site = input.next();
+    if (site.equals("Facebook"))       salary -= 150;
+    else if (site.equals("Instagram")) salary -= 100;
+    else if (site.equals("Reddit"))    salary -= 50;
+    if (salary <= 0) {
+        System.out.println("You have lost your salary.");
+        lost = true;
+        break;
+    }
+}
+if (!lost) System.out.println((int) salary);`},
+  {q:"Въведи две естествени числа и намери най-големия им общ делител (НОД).",
+   algo:"Алгоритъм на Евклид: докато b ≠ 0, заместваме двойката (a, b) с (b, a % b). Накрая a е търсеният НОД.",
+   sol:`while (b != 0) {
+    int t = a % b;
+    a = b;
+    b = t;
+}
+System.out.println("НОД = " + a);`},
+  {q:"Представи естествено число като произведение от прости множители (напр. 12 = 2.2.3).",
+   algo:"Пробваме делители d от 2 нагоре: докато n се дели на d, добавяме множителя d и делим n на d; после d++. Продължаваме, докато n стане 1.",
+   sol:`int d = 2;
+StringBuilder res = new StringBuilder();
+while (n > 1) {
+    while (n % d == 0) {
+        if (res.length() > 0) res.append(".");
+        res.append(d);
+        n /= d;
+    }
+    d++;
+}
+System.out.println("= " + res);`},
+  {q:"Изведи първите N числа на Фибоначи, разделени със запетая (0, 1, 1, 2, 3, …).",
+   algo:"Пазим двата последни члена в a и b. На всяка стъпка печатаме a и после ги придвижваме: next=a+b, a=b, b=next.",
+   sol:`int a = 0, b = 1;
+for (int i = 1; i <= N; i++) {
+    System.out.print(a + (i < N ? ", " : "\\n"));
+    int next = a + b;
+    a = b;
+    b = next;
+}`},
+  {q:"За въведено цяло число изведи цифрите му (от единиците), броя им, сумата им, най-голямата цифра и колко пъти се среща 5.",
+   algo:"Обхождаме цифрите с цикъл: последната цифра е n%10, после махаме последната с n/=10. По пътя натрупваме брой, сума, максимум и брояч за петиците.",
+   sol:`int count = 0, sum = 0, max = 0, fives = 0;
+int n = number;
+while (n > 0) {
+    int d = n % 10;        // последна цифра
+    System.out.print(d + " ");
+    count++;
+    sum += d;
+    if (d > max) max = d;
+    if (d == 5) fives++;
+    n /= 10;               // махаме последната цифра
+}
+System.out.println("\\nБрой: " + count + ", Сума: " + sum
+    + ", Макс: " + max + ", Петици: " + fives);`},
+  {q:"Намери НОД на две числа чрез алгоритъма на Евклид с изваждане.",
+   algo:"Докато двете числа са различни, от по-голямото изваждаме по-малкото. Когато станат равни, това е НОД.",
+   sol:`while (m != n) {
+    if (m > n) m = m - n;
+    else       n = n - m;
+}
+System.out.println("НОД = " + m);`},
+  {q:"Изведи всички съвършени числа, по-малки от X (число, равно на сумата от делителите си без самото него, напр. 6 = 1+2+3).",
+   algo:"Вложени цикли: външният обхожда числата, вътрешният сумира делителите на текущото число. Ако сумата е равна на числото — то е съвършено.",
+   sol:`for (int num = 2; num < X; num++) {
+    int s = 0;
+    for (int d = 1; d < num; d++)
+        if (num % d == 0) s += d;
+    if (s == num) System.out.println(num);   // 6, 28, ...
+}`},
+  {q:"Изведи всички питагорови тройки (a, b, c) с числа под 100, за които a² + b² = c².",
+   algo:"Три вложени цикъла обхождат кандидатите. За да няма повторения, b започва от a, а c — от b. Проверяваме равенството a·a + b·b == c·c.",
+   sol:`for (int a = 1; a < 100; a++)
+    for (int b = a; b < 100; b++)
+        for (int c = b; c < 100; c++)
+            if (a*a + b*b == c*c)
+                System.out.println(a + " " + b + " " + c);`},
+  {q:"По въведено N от [1..9] изведи цифров триъгълник (ред N: 1..N, ред N-1: 1..N-1, … до 1).",
+   algo:"Вложени цикли: външният брои редовете от N надолу до 1; вътрешният печата числата от 1 до текущия номер на реда.",
+   sol:`for (int row = N; row >= 1; row--) {
+    for (int j = 1; j <= row; j++)
+        System.out.print(j + " ");
+    System.out.println();
+}`}
+ ]},
+
+{id:"methods",subj:"java",title:"Методи",path:"06-Методи в Java/6.1-Методи в Java.pdf",
+ idea:"Методите са подпрограми (функции), които се извикват от други алгоритми — стратегията „Разделяй и владей“. Метод, който връща стойност, има тип и задължителен return; ако не връща стойност, типът е void.",
+ syntax:`<модификатори> <тип> <име> (списък от параметри) {
+    тяло
+}
+// извикване:
+име(аргументи);`,
+ exCap:"Метод, който връща противоположното число.",
+ example:`public static int getOpposite(int number){
+    return -number;
+}
+public static void main(String[] args){
+    int y = getOpposite(5);  // извикване
+    System.out.println(y);   // -5
+}`,
+ facts:["Метод с връщана стойност има тип и задължителен return; иначе типът е void.","Формални параметри (в декларацията) описват алгоритъма; фактически (при извикване) се използват при изпълнение.","Брой и тип на аргументите трябва да съвпадат с параметрите.","static метод може да се извика без обект.","Локална променлива е видима само в метода/блока; глобална (поле на класа) — за всички методи.","Изпълнението на програмата започва от main.","Ползи: четимост, контрол, лесно откриване на грешки, повторно използване на код."],
+ mistakes:["Липсващ return в метод, който трябва да връща стойност.","Несъответствие между брой/тип на аргументите и параметрите.","Достъп до локална променлива извън метода.","Дефиниране на метод вътре в друг метод — не е позволено."],
+ tasks:[
+  {q:"Клас Triples: методи getMin3(a,b,c), isIncreasing(a,b,c), isPythagorean(a,b,c).",
+   algo:"Всеки метод капсулира едно пресмятане/проверка и връща резултат (int или boolean); в main се извикват по ред.",
+   sol:`public static int getMin3(int a, int b, int c) {
+    int min = a;
+    if (b < min) min = b;
+    if (c < min) min = c;
+    return min;
+}
+public static boolean isIncreasing(int a, int b, int c) {
+    return a < b && b < c;
+}
+public static boolean isPythagorean(int a, int b, int c) {
+    return a*a + b*b == c*c
+        || a*a + c*c == b*b
+        || b*b + c*c == a*a;
+}`},
+  {q:"Клас Equations: метод solutionsLinear(a,b), който решава a·x + b = 0.",
+   algo:"Разглеждаме случаите: ако a≠0 → едно решение x=−b/a; ако a=0 и b=0 → безброй; ако a=0 и b≠0 → няма решение.",
+   sol:`public static void solutionsLinear(double a, double b) {
+    if (a != 0)
+        System.out.println("x = " + (-b / a));
+    else if (b == 0)
+        System.out.println("Безброй решения");
+    else
+        System.out.println("Няма решение");
+}`},
+  {q:"Дефинирай два варианта на метод printDate — (int day, String month) и (String month, int day).",
+   algo:"Overloading — еднакво име, но различна сигнатура (ред на типовете). Java избира варианта според типовете на аргументите при извикване.",
+   sol:`public static void printDate(int day, String month) {
+    System.out.println(day + " " + month);
+}
+public static void printDate(String month, int day) {
+    System.out.println(month + " " + day);
+}`},
+  {q:"Клас TriangleGeometry: методи isTriangle(a,b,c) и getArea(a,b,c).",
+   algo:"isTriangle проверява триъгълниковото неравенство. Лицето се смята по формулата на Херон: p=(a+b+c)/2, S=√(p(p−a)(p−b)(p−c)).",
+   sol:`public static boolean isTriangle(double a, double b, double c) {
+    return a + b > c && a + c > b && b + c > a;
+}
+public static double getArea(double a, double b, double c) {
+    double p = (a + b + c) / 2;
+    return Math.sqrt(p * (p-a) * (p-b) * (p-c));
+}`},
+  {q:"Метод, който по оценка (2.00–6.00) връща оценката с думи: Fail / Poor / Good / Very good / Excellent.",
+   algo:"Серия проверки по нарастващи прагове; връщаме първата дума, чийто диапазон покрива оценката.",
+   sol:`public static String gradeToWord(double g) {
+    if (g < 3.00) return "Fail";
+    if (g < 3.50) return "Poor";
+    if (g < 4.50) return "Good";
+    if (g < 5.50) return "Very good";
+    return "Excellent";
+}`},
+  {q:"Метод power(a, b), който пресмята a на степен b чрез умножение. Изведи по-голямото от a^b и b^a.",
+   algo:"Степенуване с натрупващ цикъл (умножаваме b пъти). В main извикваме метода за двете стойности и извеждаме по-голямата с Math.max.",
+   sol:`public static int power(int base, int exp) {
+    int r = 1;
+    for (int i = 0; i < exp; i++) r *= base;
+    return r;
+}
+// в main:
+int ab = power(a, b), ba = power(b, a);
+System.out.println(Math.max(ab, ba));`},
+  {q:"Два варианта на метод printSmall — за две числа и за два низа. Извежда по-малката стойност (низовете лексикографски); при равни — „Same values“.",
+   algo:"Overloading по тип на параметрите. За числа — Math.min; за низове — compareTo (< 0 значи първият е по-малък лексикографски). Равенство се проверява отделно.",
+   sol:`public static void printSmall(int a, int b) {
+    if (a == b) System.out.println("Same values");
+    else        System.out.println(Math.min(a, b));
+}
+public static void printSmall(String a, String b) {
+    if (a.equals(b))             System.out.println("Same values");
+    else if (a.compareTo(b) < 0) System.out.println(a);
+    else                         System.out.println(b);
+}`},
+  {q:"Клас Numbers: методи countDig(n) и maxDig(n) за броя на цифрите и най-голямата цифра (работят и за отрицателни числа).",
+   algo:"Обхождаме цифрите с n%10 и n/=10. За отрицателни числа първо взимаме Math.abs. countDig използва do-while, за да брои коректно и числото 0.",
+   sol:`public static int countDig(int n) {
+    n = Math.abs(n);
+    int c = 0;
+    do { c++; n /= 10; } while (n > 0);
+    return c;
+}
+public static int maxDig(int n) {
+    n = Math.abs(n);
+    int max = 0;
+    while (n > 0) { max = Math.max(max, n % 10); n /= 10; }
+    return max;
+}`},
+  {q:"Намери произведението от сбора на четните и сбора на нечетните цифри на цяло число (работи и за отрицателни).",
+   algo:"Обхождаме цифрите; според четността добавяме към отделна сума. Резултатът е произведението на двете суми. За отрицателни — Math.abs.",
+   sol:`public static int evenOddProduct(int n) {
+    n = Math.abs(n);
+    int even = 0, odd = 0;
+    while (n > 0) {
+        int d = n % 10;
+        if (d % 2 == 0) even += d;
+        else            odd  += d;
+        n /= 10;
+    }
+    return even * odd;
+}
+// -12345 -> even=2+4=6, odd=1+3+5=9 -> 54`}
+ ]},
+
+{id:"array1d",subj:"java",title:"Едномерен масив",path:"08-Едномерен масив/8.1-Едномерен масив.pdf",
+ idea:"Масивът е обект-контейнер за краен брой стойности от еднакъв тип. Има фиксирана дължина, зададена при създаването, и всеки елемент е достъпен пряко по индекс — от 0 до length-1.",
+ syntax:`int[] A;                  // декларация (реферира null)
+int[] A = new int[6];     // създаване, стойности по подразбиране (0)
+int[] A = {1,2,3,4,5,6};  // инициализиращ списък
+A[0] = 10;                // достъп по индекс
+A.length                  // брой елементи`,
+ exCap:"Обхождане и извеждане на масив.",
+ example:`String[] fruits = {"pear","apple","banana"};
+for (int i = 0; i < fruits.length; i++)
+    System.out.println("fruit " + i + " - " + fruits[i]);
+// или наведнъж:
+System.out.println(Arrays.toString(fruits));`,
+ facts:["Индексите са от 0 до length-1; последният елемент е на N-1.","Стойности по подразбиране: числа → 0, обекти → null, boolean → false.","Дължината се чете с полето length (напр. a.length).","Създаване: с new (заделя памет, default стойности) или с инициализиращ списък {…}.","Дължината е фиксирана — не може да се променя след създаване."],
+ mistakes:["Достъп до невалиден индекс → ArrayIndexOutOfBoundsException.","Мислене, че последният елемент е на индекс N (той е на N-1).","`a = {2,4,3};` след декларация не е позволено (списък само при декларация)."],
+ tasks:[
+  {q:"Въведи B числа. Изведи броя на четните, провери дали образуват растяща редица (YES/NO) и ги изведи през запетая.",
+   algo:"Едно обхождане за броя четни (a[i] % 2 == 0). За растене — сравняваме всеки елемент с предходния; ако някой е по-малък → не е растяща. Извеждане с Arrays.toString.",
+   sol:`int[] a = new int[B];
+for (int i = 0; i < B; i++) a[i] = input.nextInt();
+
+int even = 0;
+for (int i = 0; i < B; i++)
+    if (a[i] % 2 == 0) even++;
+
+boolean inc = true;
+for (int i = 1; i < B; i++)
+    if (a[i] < a[i-1]) inc = false;
+
+System.out.println("Четни: " + even);
+System.out.println(inc ? "YES" : "NO");
+System.out.println(Arrays.toString(a));`},
+  {q:"Метод arrayAverage(data, n) — връща средното аритметично на елементите.",
+   algo:"Сумиране на елементите в цикъл и деление на броя n.",
+   sol:`public static double arrayAverage(double[] data, int n) {
+    double sum = 0;
+    for (int i = 0; i < n; i++)
+        sum += data[i];
+    return sum / n;
+}`},
+  {q:"Метод arrayMin(data, n) — връща най-малкия елемент.",
+   algo:"Инициализираме min с първия елемент data[0]; обхождаме останалите и обновяваме при по-малка стойност.",
+   sol:`public static double arrayMin(double[] data, int n) {
+    double min = data[0];
+    for (int i = 1; i < n; i++)
+        if (data[i] < min) min = data[i];
+    return min;
+}`},
+  {q:"Метод arrayReverse(data, n) — връща ново копие на масива с елементи в обратен ред.",
+   algo:"Създаваме нов масив; на позиция i поставяме елемента data[n-1-i] от края.",
+   sol:`public static double[] arrayReverse(double[] data, int n) {
+    double[] r = new double[n];
+    for (int i = 0; i < n; i++)
+        r[i] = data[n - 1 - i];
+    return r;
+}`},
+  {q:"Изведи елементите на масива, които са по-големи от средната стойност.",
+   algo:"Първо намираме средната стойност (напр. с arrayAverage), после обхождаме масива и печатаме тези над нея.",
+   sol:`double avg = arrayAverage(data, n);
+for (int i = 0; i < n; i++)
+    if (data[i] > avg)
+        System.out.println(data[i]);`},
+  {q:"Провери дали два масива от думи са идентични. Ако не са — намери най-малкия индекс, на който се различават.",
+   algo:"Първо сравняваме дължините. Ако са равни, обхождаме до първото различие (за низове с equals) и запомняме индекса; ако няма различие — идентични са.",
+   sol:`if (a.length != b.length) {
+    System.out.println("Arrays are not identical.");
+} else {
+    int diff = -1;
+    for (int i = 0; i < a.length; i++)
+        if (!a[i].equals(b[i])) { diff = i; break; }
+    if (diff == -1)
+        System.out.println("Arrays are identical.");
+    else
+        System.out.println("Arrays are not identical. Found difference at "
+            + diff + " index.");
+}`},
+  {q:"Метод press(arrA, n): връща нов масив с дължина n-1, всеки елемент е сума на два съседни елемента от arrA. Пример: {2,-3,12,8} → {-1,9,20}.",
+   algo:"Създаваме масив с дължина n-1; на позиция i записваме a[i] + a[i+1] (сбор на съседните).",
+   sol:`public static int[] press(int[] a, int n) {
+    int[] b = new int[n - 1];
+    for (int i = 0; i < n - 1; i++)
+        b[i] = a[i] + a[i + 1];
+    return b;
+}`},
+  {q:"От въведени N числа запиши простите в масив A, а съставните в масив B, и ги изведи.",
+   algo:"Метод isPrime проверява дали число има само делители 1 и себе си. Обхождаме входния масив и разпределяме всяко число в съответния масив (с отделни броячи-индекси).",
+   sol:`public static boolean isPrime(int n) {
+    if (n < 2) return false;
+    for (int d = 2; d <= n / 2; d++)
+        if (n % d == 0) return false;
+    return true;
+}
+// разпределяне:
+int ai = 0, bi = 0;
+for (int i = 0; i < N; i++)
+    if (isPrime(x[i])) a[ai++] = x[i];
+    else               b[bi++] = x[i];`}
+ ]},
+
+{id:"oop-intro",subj:"java",title:"Класове и обекти (ООП)",path:"09-Обектно ориентирано програмиране/1- ООП-въведение.pdf",
+ tasks:[
+  {q:"Дефинирай клас Song с частни полета (title, artist, duration), get/set методи и printInfo. В set методите: null или празен низ → стойност по подразбиране; duration ≤ 0 → 250.",
+   algo:"Капсулиране: private полета + public get/set. Валидацията се прави вътре в set методите — при невалидна стойност се присвоява стойността по подразбиране.",
+   sol:`public class Song {
+    private String title, artist;
+    private int duration;
+
+    public void setTitle(String t) {
+        title = (t == null || t.equals("")) ? "Пътища" : t;
+    }
+    public void setDuration(int d) {
+        duration = (d <= 0) ? 250 : d;
+    }
+    public String getTitle()  { return title; }
+    public int getDuration()  { return duration; }
+
+    public void printInfo() {
+        System.out.println("Song: " + title + ", Artist: " + artist
+            + ", Duration: " + duration + " sec");
+    }
+}`},
+  {q:"В масив от песни намери най-дългата и изведи заглавието и изпълнителя ѝ.",
+   algo:"Като намиране на максимум, но по поле на обекта: пазим обекта с най-голяма duration, обхождайки масива.",
+   sol:`Song[] songs = { s1, s2, s3 };
+Song longest = songs[0];
+for (int i = 1; i < songs.length; i++)
+    if (songs[i].getDuration() > longest.getDuration())
+        longest = songs[i];
+System.out.println(longest.getTitle() + " – " + longest.getArtist());`},
+  {q:"Пасивен клас Clock (час, минути, секунди — private): конструктор по подразбиране, set/get с проверка (час 0–23, мин/сек 0–59), toString (чч.мм.сс) и compareTo(Clock), който връща -1/0/1.",
+   algo:"Капсулиране: private данни + public set методи с валидация на диапазоните (некоректна стойност се игнорира). compareTo превръща двете показания в секунди и ги сравнява.",
+   sol:`public class Clock {
+    private int h, m, s;
+    public Clock() { h = 0; m = 0; s = 0; }
+
+    public void setH(int x) { if (x >= 0 && x <= 23) h = x; }
+    public void setM(int x) { if (x >= 0 && x <= 59) m = x; }
+    public void setS(int x) { if (x >= 0 && x <= 59) s = x; }
+
+    public String toString() {
+        return String.format("%02d.%02d.%02d", h, m, s);
+    }
+    public int compareTo(Clock o) {
+        int a = h*3600 + m*60 + s;
+        int b = o.h*3600 + o.m*60 + o.s;
+        return Integer.compare(a, b);   // -1 / 0 / 1
+    }
+}`},
+  {q:"Клас Book (title, author, price, genre — private) със статични членове: count (брой инстанции), maxPrice и mostExpensive; статичен метод cheaper(b1, b2).",
+   algo:"Статичните член-променливи са ОБЩИ за класа (не за отделен обект) и се инициализират в декларацията. В конструктора увеличаваме count и при по-висока цена обновяваме maxPrice/mostExpensive. Статичният cheaper връща по-евтината книга.",
+   sol:`public class Book {
+    private String title, author, genre;
+    private double price;
+
+    static int count = 0;               // общи за класа
+    static double maxPrice = 0;
+    static String mostExpensive = "";
+
+    public Book(String t, String a, double p, String g) {
+        title = t; author = a; price = p; genre = g;
+        count++;                        // брои инстанциите
+        if (p > maxPrice) { maxPrice = p; mostExpensive = toString(); }
+    }
+    public String toString() { return title + " от " + author + ", " + price; }
+
+    public static Book cheaper(Book b1, Book b2) {
+        return (b1.price <= b2.price) ? b1 : b2;
+    }
+}`}
+ ],
+ idea:"В ООП обектът обединява данни (член-данни — състояние) и методи (поведение). Класът е шаблон с атрибути и методи; конкретните обекти са инстанции на класа. Отношението „ИМА“ (HAS-A) описва структурата на класа.",
+ syntax:`public class Rectangle {
+    private double length;   // член-данни (състояние)
+    private double width;
+    public double calculateArea() {   // метод (поведение)
+        return length * width;
+    }
+}`,
+ exCap:"Създаване и използване на инстанция.",
+ example:`Rectangle r = new Rectangle();  // инстанция
+r.setLength(4);
+r.setWidth(5);
+System.out.println(r.calculateArea());  // 20.0`,
+ facts:["Класът е шаблон; обектът (инстанция) е конкретен екземпляр по този шаблон.","Двете групи характеристики: състояние (данни) и поведение (методи).","Данните обикновено са private, а методите public — това е капсулиране.","new Class() създава инстанция чрез конструктор и заделя памет.","Именуване: клас — PascalCase (главна буква); данни/методи — camelCase (малка буква)."],
+ mistakes:["Смесване на клас (шаблон) и обект (конкретна инстанция).","Извикване на метод без обект (без точка след името на инстанцията).","Оставяне на данните public вместо private."]},
+
+{id:"constructors",subj:"java",title:"Конструктори и Overloading",path:"09-Обектно ориентирано програмиране/2-Конструктори.Overloading.pdf",
+ tasks:[
+  {q:"Дефинирай клас Circle с два конструктора (по подразбиране и за общо ползване), метод area() и toString().",
+   algo:"Конструкторът по подразбиране задава начална стойност; конструкторът с параметър инициализира от аргумента (this.r различава поле от параметър). toString връща данните като низ.",
+   sol:`public class Circle {
+    private double r;
+
+    public Circle()          { r = 1; }        // по подразбиране
+    public Circle(double r)  { this.r = r; }    // за общо ползване
+
+    public double area() { return Math.PI * r * r; }
+
+    public String toString() {
+        return "Circle[r=" + r + ", area=" + area() + "]";
+    }
+}`},
+  {q:"Създай обекти с двата конструктора и ги изведи.",
+   algo:"Overloading: Java избира конструктора според броя/типа аргументи. println(обект) автоматично вика toString().",
+   sol:`Circle a = new Circle();      // r = 1
+Circle b = new Circle(2.5);   // r = 2.5
+System.out.println(a);        // вика toString()
+System.out.println(b);`},
+  {q:"Пасивен клас Rational (дроб): числител и знаменател (private); конструктор по подразбиране 0/1; set/get с проверка знаменателят да не е 0; toString във вид числител/знаменател.",
+   algo:"Конструкторът по подразбиране задава 0/1. setDen отказва стойност 0 (некоректен знаменател — дроб не може да има знаменател 0). toString сглобява низа.",
+   sol:`public class Rational {
+    private int num, den;
+    public Rational() { num = 0; den = 1; }   // по подразбиране
+
+    public void setNum(int n) { num = n; }
+    public void setDen(int d) { if (d != 0) den = d; }
+    public int getNum() { return num; }
+    public int getDen() { return den; }
+
+    public String toString() { return num + "/" + den; }
+}`},
+  {q:"За дроб числител/знаменател изведи дали е proper / improper / integer и дали е positive / negative / zero.",
+   algo:"integer — ако числителят се дели на знаменателя; иначе proper (|числител| < |знаменател|) или improper. Знакът се определя от знака на произведението числител·знаменател (0 → zero).",
+   sol:`if (num % den == 0)                     System.out.println("integer");
+else if (Math.abs(num) < Math.abs(den)) System.out.println("proper");
+else                                    System.out.println("improper");
+
+if (num == 0)           System.out.println("zero");
+else if (num * den > 0) System.out.println("positive");
+else                    System.out.println("negative");`}
+ ],
+ idea:"Конструкторът е специален метод, който създава и инициализира обектите. Има същото име като класа и НЯМА тип. Ако не дефинираме конструктор, автоматично има конструктор по подразбиране. Overloading е няколко конструктора/метода с еднакво име, но различни параметри.",
+ syntax:`public Rectangle() {                    // по подразбиране (без параметри)
+    length = 1; width = 1;
+}
+public Rectangle(double l, double w) {  // за общо ползване (с параметри)
+    length = l; width = w;
+}`,
+ exCap:"Създаване чрез двата конструктора.",
+ example:`Rectangle a = new Rectangle();      // 1.0, 1.0
+Rectangle b = new Rectangle(4, 5);  // 4.0, 5.0`,
+ facts:["Конструкторът има име като класа и няма тип (дори void).","Конструктор по подразбиране е без параметри; за общо ползване — с параметри.","Ако не напишем конструктор, автоматично има конструктор по подразбиране.","След дефиниране на конструктор с параметри, конструкторът по подразбиране вече не се създава сам.","Overloading — еднакво име, но различен списък параметри."],
+ mistakes:["Задаване на тип (напр. void) на конструктор.","Име, различно от името на класа.","Очакване, че конструкторът по подразбиране още съществува след като сме дефинирали друг с параметри."]},
+
+{id:"inheritance",subj:"java",title:"Наследяване",path:"10-Наследяване, интерфейси и още/10.2-Наследяване.pdf",
+ tasks:[
+  {q:"Клас Person (име, ЕГН). Клас Student наследява Person и добавя специалност и успех; дефинирай конструктор и toString.",
+   algo:"extends за наследяване; super(...) инициализира родителската част (име, ЕГН); toString комбинира наследените и собствените данни.",
+   sol:`public class Student extends Person {
+    private String specialty;
+    private double grade;
+
+    public Student(String name, String egn, String sp, double g) {
+        super(name, egn);       // конструктор на Person
+        specialty = sp;
+        grade = g;
+    }
+    public double getGrade() { return grade; }
+
+    public String toString() {
+        return getName() + " – " + specialty + " – " + grade;
+    }
+}`},
+  {q:"Въведи N студенти. Изведи средния успех, максималния успех и данните на студентите с максимален успех.",
+   algo:"Масив от Student. Един проход: сумиране за средното + намиране на максимума. Втори проход: печатаме тези с успех, равен на максимума.",
+   sol:`double sum = 0, max = st[0].getGrade();
+for (int i = 0; i < N; i++) {
+    sum += st[i].getGrade();
+    if (st[i].getGrade() > max) max = st[i].getGrade();
+}
+System.out.println("Среден успех: " + (sum / N));
+for (int i = 0; i < N; i++)
+    if (st[i].getGrade() == max) System.out.println(st[i]);`},
+  {q:"Клас Company (име, дата на създаване, булстат — 10 знака). Клас CompanyST наследява Company и добавя собственик, начален и актуален капитал, и метод profit() = актуален − начален.",
+   algo:"Наследяване с extends. В set метода за булстат проверяваме дължина точно 10 символа. profit() е нестатичен, без параметри, връща double — разликата между актуалния и началния капитал.",
+   sol:`public class Company {
+    protected String name, date, bulstat;
+    public void setBulstat(String b) {
+        if (b.length() == 10) bulstat = b;   // проверка за дължина
+    }
+}
+
+public class CompanyST extends Company {
+    private String owner;
+    private double startCap, currentCap;
+
+    public double profit() {
+        return currentCap - startCap;
+    }
+}`}
+ ],
+ idea:"Наследяването създава нов клас (наследник) на базата на съществуващ (родител), като преизползва полета и методи и добавя нови. Java поддържа само единично наследяване (extends един клас). Отношението е „is a“.",
+ syntax:`class SubClass extends SuperClass {
+    // нови данни и методи
+}
+super();              // извиква конструктор на родителя
+super(name, year);`,
+ exCap:"Дъщерен клас Worker наследява Person.",
+ example:`public class Worker extends Person {
+    private String position;
+    public Worker(String name, int year) {
+        super(name, year);   // конструктор на Person
+        position = "driver";
+    }
+}`,
+ facts:["extends задава наследяване; в Java има само единично наследяване.","Наследникът получава public и protected членове на родителя (не private).","super(...) извиква конструктора на родителя.","final клас не се наследява; родителят не може да е private.","Родителят НЕ разполага с членовете на наследника.","Отношението е „is a“ (Worker is a Person).","Синоними: родител = супер/базов/предшественик; наследник = подклас/производен."],
+ mistakes:["Опит за наследяване на повече от един клас.","Очакване наследникът да вижда private членовете на родителя.","Забравен super(...) при нужда от инициализация на родителската част."]},
+
+{id:"abstract",subj:"java",title:"Абстрактни класове",path:"10-Наследяване, интерфейси и още/10.4-Абстрактни класове.pdf",
+ tasks:[
+  {q:"Абстрактен клас Figure с абстрактен метод area(). Наследници Circle и Square, всеки със своя реализация.",
+   algo:"В базовия клас area() е абстрактен (без тяло). Всеки конкретен наследник задължително дава своя реализация на area().",
+   sol:`abstract class Figure {
+    abstract double area();
+}
+class Circle extends Figure {
+    double r;
+    Circle(double r) { this.r = r; }
+    double area() { return Math.PI * r * r; }
+}
+class Square extends Figure {
+    double a;
+    Square(double a) { this.a = a; }
+    double area() { return a * a; }
+}`},
+  {q:"Създай масив от Figure с различни фигури и сумирай лицата им.",
+   algo:"Полиморфизъм: държим различни фигури чрез общия тип Figure; извикването на area() изпълнява реализацията на конкретния обект.",
+   sol:`Figure[] fs = { new Circle(2), new Square(3) };
+double sum = 0;
+for (Figure f : fs)
+    sum += f.area();
+System.out.println("Общо лице: " + sum);`}
+ ],
+ idea:"Абстракцията скрива подробностите и показва само същественото. Абстрактен метод има само декларация, без тяло; клас с поне един абстрактен метод трябва да е abstract. Абстрактен клас НЕ може да се инстанцира — само да се наследява.",
+ syntax:`public abstract class Animal {
+    abstract void makeSound();    // без тяло
+    public void eat() { ... }     // конкретен метод
+}
+class Dog extends Animal {
+    public void makeSound() { System.out.println("Бау-бау"); }
+}`,
+ exCap:"Наследниците дават своя реализация на makeSound.",
+ example:`Dog d = new Dog();
+d.makeSound();   // Бау-бау
+d.eat();
+// Animal a = new Animal();  // ГРЕШКА – не може да се инстанцира`,
+ facts:["Абстрактен метод има само декларация, без тяло.","Клас с поне един абстрактен метод трябва да е abstract.","Абстрактен клас не се инстанцира — само се наследява.","Наследникът трябва да имплементира всички абстрактни методи (иначе и той е abstract).","Абстрактният клас може да съдържа и конкретни методи, и данни."],
+ mistakes:["Опит `new` върху абстрактен клас.","Наследник, който не имплементира всички абстрактни методи и не е abstract.","Абстрактен метод с тяло `{ }`."]},
+
+{id:"interface",subj:"java",title:"Интерфейси",path:"10-Наследяване, интерфейси и още/10.7-Интерфейс.pdf",
+ tasks:[
+  {q:"Интерфейс Animal с метод sound(). Класове Dog и Pig го реализират.",
+   algo:"implements задължава класа да имплементира sound(). Можем да работим чрез типа на интерфейса (Animal a = new Dog()).",
+   sol:`interface Animal { void sound(); }
+
+class Dog implements Animal {
+    public void sound() { System.out.println("Бау"); }
+}
+class Pig implements Animal {
+    public void sound() { System.out.println("wee wee"); }
+}
+// употреба:
+Animal a = new Dog();
+a.sound();   // Бау`},
+  {q:"Клас Duck, който реализира два интерфейса — Swimmer и Flyer.",
+   algo:"Клас може да реализира няколко интерфейса (разделени със запетая) — така се постига ефект на множествено наследяване. Трябва да имплементира методите на всички.",
+   sol:`interface Swimmer { void swim(); }
+interface Flyer   { void fly(); }
+
+class Duck implements Swimmer, Flyer {
+    public void swim() { System.out.println("плува"); }
+    public void fly()  { System.out.println("лети"); }
+}`}
+ ],
+ idea:"Интерфейсът е друг начин за абстракция — групира свързани методи (по подразбиране абстрактни; конкретните са default). Данните са public static final. Клас го реализира с implements и може да реализира няколко интерфейса, което заобикаля липсата на множествено наследяване.",
+ syntax:`interface MyInterface {
+    void method1();               // абстрактен по подразбиране
+    default void m2() { ... }     // с тяло
+}
+class XYZ implements MyInterface, Second {
+    public void method1() { ... }
+}`,
+ exCap:"Клас Pig реализира интерфейса Animal.",
+ example:`interface Animal { void animalSound(); }
+class Pig implements Animal {
+    public void animalSound() {
+        System.out.println("The pig says: wee wee");
+    }
+}`,
+ facts:["implements — клас реализира интерфейс (за разлика от extends).","Методите по подразбиране са public abstract (без тяло); с тяло — default.","Данните са public static final (константи).","Един клас може да реализира няколко интерфейса (разделени със запетая).","Интерфейсът не се инстанцира и няма конструктор."],
+ mistakes:["Опит за инстанциране на интерфейс.","extends вместо implements при клас.","Забравен public пред имплементираните методи."]},
+
+{id:"sorting",subj:"sda",title:"Сортиране (селекция и мехурче)",path:"1-Едномерен масив/1.02.1 · 1.02.2",
+ tasks:[
+  {q:"Сортирай числов масив във възходящ ред с метода на мехурчето (реализация в Java).",
+   algo:"Външен цикъл с флаг change; вътрешен цикъл сравнява всеки два съседни елемента и ги разменя при неправилен ред. Спираме, когато при цяло обхождане няма размествания.",
+   sol:`boolean change;
+do {
+    change = false;
+    for (int i = 0; i < n - 1; i++)
+        if (a[i] > a[i + 1]) {
+            int t = a[i]; a[i] = a[i + 1]; a[i + 1] = t;
+            change = true;
+        }
+} while (change);`},
+  {q:"Сортирай числов масив с метода на пряката селекция.",
+   algo:"За всяка позиция i намираме индекса pos на минимума в останалата част [i..n-1] и разменяме a[i] с a[pos].",
+   sol:`for (int i = 0; i < n - 1; i++) {
+    int pos = i;
+    for (int j = i + 1; j < n; j++)
+        if (a[j] < a[pos]) pos = j;
+    int t = a[i]; a[i] = a[pos]; a[pos] = t;
+}`},
+  {q:"Сортирай масив със стандартния метод на Java.",
+   algo:"Arrays.sort сортира масив във възходящ ред; за колекции (List) се използва Collections.sort.",
+   sol:`int[] a = {5, 2, 8, 1};
+Arrays.sort(a);                       // {1, 2, 5, 8}
+System.out.println(Arrays.toString(a));`},
+  {q:"Сортирай масив чрез вмъкване (insertion sort).",
+   algo:"За всяка позиция i взимаме елемента x = a[i] и го местим наляво: докато предходните елементи са по-големи от x, ги избутваме надясно; после поставяме x на освободеното място.",
+   sol:`for (int i = 1; i < n; i++) {
+    int x = a[i], j = i - 1;
+    while (j >= 0 && a[j] > x) {
+        a[j + 1] = a[j];   // избутваме надясно
+        j--;
+    }
+    a[j + 1] = x;          // вмъкваме на мястото му
+}`},
+  {q:"Сортирай масив чрез клатене (shaker / cocktail sort).",
+   algo:"Редуваме обхождания между граници left и right. Отляво надясно избутваме най-голямото към края и помним последното разместване (нова дясна граница); после отдясно наляво избутваме най-малкото към началото (нова лява граница). Спираме при left ≥ right.",
+   sol:`int left = 0, right = n - 1;
+int k = 0, x;
+do {
+    k = right - 1;
+    for (int i = left; i < right; i++)
+        if (a[i] > a[i+1]) { x=a[i]; a[i]=a[i+1]; a[i+1]=x; k=i; }
+    right = k;
+    k = left + 1;
+    for (int i = right; i > left; i--)
+        if (a[i-1] > a[i]) { x=a[i]; a[i]=a[i-1]; a[i-1]=x; k=i; }
+    left = k;
+} while (left < right);`},
+  {q:"Сортирай масив от обекти Student по два признака — по факултетен номер и по име — със стандартния Arrays.sort и класове-компаратори.",
+   algo:"Класът-компаратор имплементира Comparator<Student> и метода compare(a,b), който връща отрицателно / 0 / положително за a<b / a=b / a>b. Инстанция на компаратора се подава като втори аргумент на Arrays.sort.",
+   sol:`class CompNum implements Comparator<Student> {
+    public int compare(Student a, Student b) {
+        return Integer.compare(a.facultyNum, b.facultyNum);
+    }
+}
+class CompName implements Comparator<Student> {
+    public int compare(Student a, Student b) {
+        return a.name.compareTo(b.name);   // лексикографски
+    }
+}
+// употреба:
+Arrays.sort(st, new CompNum());    // по номер
+Arrays.sort(st, new CompName());   // по име`}
+ ],
+ idea:"Сортирането пренарежда редица в растящ или намаляващ ред. При пряка селекция намираме минимума в остатъка и го разменяме напред. При метода на мехурчето сравняваме съседни двойки и разменяме неправилно подредените; повтаряме, докато има поне едно разместване.",
+ syntax:`// Пряка селекция (реализация от материалите)
+for (i=0; i<n-1; i++) {
+    min=A[i]; pos=i;
+    for (j=i+1; j<n; j++)
+        if (A[j]<min) { min=A[j]; pos=j; }
+    swap(A[i], A[pos]);
+}`,
+ exCap:"Метод на мехурчето (реализация от материалите).",
+ example:`int change;
+do {
+    change=0;
+    for (i=0; i<n-1; i++)
+        if (A[i] > A[i+1]) { swap(A[i],A[i+1]); change=1; }
+} while (change==1);`,
+ facts:["Пряка селекция: намираме минимума в остатъка и го разменяме на предната позиция; повтаряме за все по-къси редици.","Мехурче: сравняваме съседни двойки и разменяме неправилните.","Мехурчето спира, когато при пълно обхождане няма нито едно разместване (флаг change).","Растяща редица: всеки следващ елемент е по-голям или равен на предходния.","pos пази позицията на текущия минимум (при селекция)."],
+ mistakes:["Без флага change — излишно или недостатъчно обхождане при мехурчето.","Излизане извън границите: сравняваме A[i] с A[i+1], затова i стига само до n-2.","Размяна на две стойности без временна променлива."]},
+
+{id:"binsearch",subj:"sda",title:"Двоично търсене",path:"1-Едномерен масив/1.10-Двоично търсене.pdf",
+ tasks:[
+  {q:"Реализирай двоично търсене на стойност X в сортиран масив; върни позицията или -1.",
+   algo:"Поддържаме лява и дясна граница l, r. Взимаме средния елемент m; при съвпадение — край; ако a[m]<X търсим дясно (l=m+1), иначе ляво (r=m-1). Спираме при l>r.",
+   sol:`int p = -1, l = 0, r = n - 1;
+while (l <= r) {
+    int m = (l + r) / 2;
+    if (a[m] == X) { p = m; break; }
+    if (a[m] < X) l = m + 1;
+    else          r = m - 1;
+}
+System.out.println(p > -1 ? "позиция " + p : "not found");`}
+ ],
+ idea:"В СОРТИРАН масив търсенето се ускорява. Сравняваме търсеното число X със средния елемент и продължаваме само в едната половина. Повтаряме, докато има съвпадение или редицата, в която търсим, се изпразни.",
+ syntax:`p=-1; l=0; r=n-1;
+while (l <= r) {
+    m = (l+r)/2;
+    if (a[m]==X) { p=m; break; }
+    if (a[m]<X) l = m+1;   // дясна половина
+    else        r = m-1;   // лява половина
+}`,
+ exCap:"Извеждане на резултата.",
+ example:`if (p > -1) System.out.println("found in position " + p);
+else        System.out.println("not found");`,
+ facts:["Работи само върху СОРТИРАН масив.","Среден индекс: m = (l + r) / 2.","Ако a[m] < X → дясна половина (l = m+1); ако a[m] > X → лява (r = m-1).","Спира при съвпадение или когато l > r (не намерено, връща -1).","Много по-бързо от последователното търсене."],
+ mistakes:["Прилагане върху НЕсортиран масив.","Корекция l=m или r=m вместо m+1 / m-1 → безкраен цикъл.","Условие l<r вместо l<=r → пропуска се последният елемент."]},
+
+{id:"merge",subj:"sda",title:"Сливане на сортирани редици",path:"1-Едномерен масив/1.11-Сливане.pdf",
+ tasks:[
+  {q:"Слей два сортирани масива a (n1 елемента) и b (n2 елемента) в нов сортиран масив c.",
+   algo:"Два указателя i, j по двата масива. Докато и двата имат елементи — записваме по-малкия в c и местим неговия указател. После два цикъла прехвърлят остатъка от неизчерпания масив.",
+   sol:`int i = 0, j = 0, k = 0;
+while (i < n1 && j < n2)
+    if (a[i] < b[j]) c[k++] = a[i++];
+    else             c[k++] = b[j++];
+while (i < n1) c[k++] = a[i++];   // остатък от a
+while (j < n2) c[k++] = b[j++];   // остатък от b`}
+ ],
+ idea:"Сливането обединява две вече сортирани редици в една сортирана. С два указателя сравняваме челата им и записваме по-малкия елемент в новата редица; накрая прехвърляме остатъка от неизчерпаната редица.",
+ syntax:`int i=0, j=0, k=0;
+while (i<n1 && j<n2)
+    if (a[i] < b[j]) { c[k]=a[i]; k++; i++; }
+    else             { c[k]=b[j]; k++; j++; }
+while (i<n1) { c[k]=a[i]; k++; i++; }   // остатък от a
+while (j<n2) { c[k]=b[j]; k++; j++; }   // остатък от b`,
+ exCap:"Слива a (n1 елемента) и b (n2) в c (n1+n2), сортирани.",
+ example:`// след цикъла c съдържа всички елементи на a и b,
+// подредени в нарастващ ред`,
+ facts:["Предусловие: двете редици трябва да са сортирани.","Два указателя (i, j) сочат челата; по-малкият елемент отива в новата редица.","След главния цикъл — два while цикъла прехвърлят остатъка.","Резултатната редица има n1 + n2 елемента."],
+ mistakes:["Забравяне на един от опашните while цикли → изгубени елементи.","Прилагане върху несортирани редици.","Грешен размер на c (трябва n1 + n2)."]},
+
+{id:"strings",subj:"sda",title:"Символни низове (String)",path:"3-Символни низове/3..1-Символен низ. String (1).pdf",
+ tasks:[
+  {q:"Въвеждат се имена, докато се въведе „stop“. Изведи броя на имената и първото и последното въведено.",
+   algo:"Пазим първото (x) и последно въведено (y) име. Цикъл while(true) с break при „stop“; брояч br се увеличава за всяко валидно име.",
+   sol:`String x = inp.nextLine(), y = x, temp;
+int br = 1;
+while (true) {
+    temp = inp.nextLine();
+    if (temp.equalsIgnoreCase("stop")) break;
+    br++;
+    y = temp;
+}
+System.out.println(br);
+System.out.println(x + " и " + y + " ще участват в томбола.");`},
+  {q:"Изведи думите, които започват и завършват с една и съща буква.",
+   algo:"За всяка дума сравняваме първия символ charAt(0) с последния charAt(length-1). Проверката покрива и разлика само в регистъра (главна/малка).",
+   sol:`char c1 = w.charAt(0);
+char c2 = w.charAt(w.length() - 1);
+if (c1 == c2 || Math.abs(c1 - c2) == Math.abs('A' - 'a'))
+    System.out.println(w);`},
+  {q:"Провери дали дума е палиндром (чете се еднакво отпред и отзад).",
+   algo:"Сравняваме симетричните символи: charAt(i) с charAt(length-1-i), движейки се към средата. При различие — не е палиндром.",
+   sol:`boolean pal = true;
+for (int i = 0; i < s.length() / 2; i++)
+    if (s.charAt(i) != s.charAt(s.length() - 1 - i))
+        pal = false;
+System.out.println(pal ? "палиндром" : "не е палиндром");`}
+ ],
+ idea:"Низът е последователност от символи (клас java.lang.String). Стойността му е НЕпроменяема. Достъпът до символ е с charAt по индекс, а сравнението по стойност — с equals (не с ==).",
+ syntax:`String s = "Hello";
+s.length();              // дължина
+s.charAt(0);             // символ по индекс
+s1.equals(s2);           // сравнение по стойност
+s1 + s2;   s1.concat(s2);// слепване (конкатенация)
+s.substring(2);  s.substring(2,4);  // подниз
+s.indexOf('a');          // първо срещане (или -1)`,
+ exCap:"Достъп по индекс и подниз.",
+ example:`String buf = "Galina";
+char c = buf.charAt(3);                 // 'i'
+String p = "Marianna".substring(2,4);   // "ri"`,
+ facts:["String е НЕпроменяем — всяка промяна създава нов обект.","Сравнение по стойност: equals (или equalsIgnoreCase), НЕ с ==.","charAt(i) — символ по индекс; length() — дължина.","substring(begin, end) включва begin, но НЕ end.","indexOf връща първото срещане или -1.","Слепване: с + или с concat.","Последният символ: s.charAt(s.length()-1)."],
+ mistakes:["Сравнение на низове с == вместо equals.","Индекс извън границите → StringIndexOutOfBoundsException.","Обръщение към null низ → NullPointerException.","Очакване substring(b,e) да включва символа на e."]},
+
+{id:"stringbuilder",subj:"sda",title:"StringBuilder",path:"3-Символни низове/3.13-StringBuilder - динамични низове.pdf",
+ tasks:[
+  {q:"Обърни низ, използвайки StringBuilder.",
+   algo:"Създаваме StringBuilder от низа и извикваме reverse(); после toString() за да върнем резултата като String.",
+   sol:`String s = "abcde";
+String r = new StringBuilder(s).reverse().toString();
+System.out.println(r);   // edcba`},
+  {q:"Построй низ от числата 1..5 в цикъл (ефективно).",
+   algo:"Използваме append в цикъл вместо конкатенация със String + — не създава нов обект при всяка стъпка.",
+   sol:`StringBuilder sb = new StringBuilder();
+for (int i = 1; i <= 5; i++)
+    sb.append(i).append(" ");
+System.out.println(sb.toString());   // 1 2 3 4 5`}
+ ],
+ idea:"String е непроменяем, затова многократната конкатенация в цикъл създава много обекти и е бавна. StringBuilder е динамичен (променяем) масив от символи с методи за добавяне и промяна на място.",
+ syntax:`StringBuilder sb = new StringBuilder();  // капацитет 16
+sb.append("текст");     // добавя в края
+sb.insert(pos, x);      // вмъква на позиция
+sb.delete(start, end);  // изтрива подниз
+sb.reverse();           // обръща
+sb.toString();          // към String`,
+ exCap:"Добавяне на текст.",
+ example:`StringBuilder s = new StringBuilder("Anna");
+s.append(" is from Bulgaria.");
+System.out.println(s);`,
+ facts:["StringBuilder е променяем — за разлика от String.","Много по-бърз при промени в цикъл (не създава нов обект всеки път).","Методи: append, insert, delete, replace, reverse, toString.","length() — заети символи; capacity() — общо място (начално 16).","toString() връща резултата като String.","StringBuffer е аналог със синхронизация (по-бавен)."],
+ mistakes:["Използване на String + в цикъл вместо StringBuilder.","Бъркане на capacity() (общо място) с length() (заети символи).","delete/replace — крайният индекс end не се включва."]},
+
+{id:"recursion",subj:"sda",title:"Рекурсия",path:"4-Рекурсия/4.1-Рекурсия (1).pdf",
+ tasks:[
+  {q:"Рекурсивен метод power(x, n), който връща x на степен n (n ≥ 0).",
+   algo:"Базов случай: n==0 връща 1. Рекурсивна стъпка: x · power(x, n-1) — свеждаме към по-малък показател.",
+   sol:`public static int power(int x, int n) {
+    if (n == 0) return 1;         // базов случай
+    return x * power(x, n - 1);   // рекурсивна стъпка
+}`},
+  {q:"Рекурсивен метод за n-тия член на аритметична прогресия, определена от a0 и d.",
+   algo:"Рекурентна дефиниция: a(0)=a0; a(n)=a(n-1)+d. Базовият случай е n==0.",
+   sol:`public static int arith(int a0, int d, int n) {
+    if (n == 0) return a0;
+    return arith(a0, d, n - 1) + d;
+}`},
+  {q:"Рекурсивен метод, който връща броя на цифрите на неотрицателно цяло число.",
+   algo:"Базов случай: число под 10 има 1 цифра. Стъпка: 1 + брой на цифрите на n/10 (махаме последната цифра).",
+   sol:`public static int digits(int n) {
+    if (n < 10) return 1;
+    return 1 + digits(n / 10);
+}`}
+ ],
+ idea:"Рекурсивен метод извиква сам себе си. Двата задължителни елемента са рекурсивна стъпка (свеждане към по-малък случай) и гранично условие (базов случай), което спира рекурсията. Всеки рекурсивен алгоритъм има итеративен вариант.",
+ syntax:`public static long fact(int n){
+    if (n==1) return 1;      // гранично условие (базов случай)
+    return n * fact(n-1);    // рекурсивна стъпка
+}`,
+ exCap:"Число от редицата на Фибоначи.",
+ example:`public static int fib(int n){
+    if (n==0) return 0;
+    if (n==1) return 1;
+    return fib(n-1) + fib(n-2);
+}`,
+ facts:["Двата задължителни елемента: рекурсивна стъпка и гранично (базово) условие.","Без правилно гранично условие → безкрайна рекурсия (StackOverflow).","Пряка: методът вика себе си; косвена: А вика В, В вика А.","Всеки рекурсивен алгоритъм има итеративен вариант (често по-ефективен).","Факториел: n! = n·(n-1)! за n>1; 1! = 1.","Наивният fib е експоненциално бавен — пресмята едно и също многократно."],
+ mistakes:["Липсващо/грешно гранично условие.","Рекурсивната стъпка не намалява параметъра към базовия случай.","Наивен fib при големи n — много бавен."]},
+
+{id:"ds-types",subj:"sda",title:"Структури от данни — видове",path:"6-Структури от данни (1)/6.1-Типове от данни, структури.pdf",
+ tasks:[
+  {q:"Класифицирай масив, свързан списък и стек по четирите признака.",
+   algo:"Прилагаме признаците: тип на елементите, метод на достъп, брой (статична/динамична), свързаност.",
+   sol:`Масив:          статичен,  хомогенен, линеен, ПРЯК достъп (по индекс)
+Свързан списък: динамичен, хомогенен, линеен, ПОСЛЕДОВАТЕЛЕН достъп
+Стек:           динамичен, линеен, достъп само до върха (LIFO)`},
+  {q:"Кое е по-подходящо при често добавяне/изтриване в средата — масив или свързан списък?",
+   algo:"Сравняваме свойствата: масивът пази елементите в непрекъснат блок, списъкът — чрез връзки.",
+   sol:`Свързан списък — добавя/изтрива бързо (само пренасочва връзки),
+без разместване на елементи. При масив се налага преместване
+на всички следващи елементи, което е по-бавно.`}
+ ],
+ idea:"Структурата от данни е съвкупност от данни, организирани по специфичен начин. Класифицира се по тип на елементите, метод на достъп, брой на елементите и свързаност между тях.",
+ syntax:`Тип на елементите:  хомогенни | хетерогенни
+Метод на достъп:    пряк | последователен
+Брой елементи:      статични | динамични
+Свързаност:         линейни | нелинейни
+                    (нелинейни: йерархични, мрежови, множество)`,
+ exCap:"Примери за класификация.",
+ example:`Масив и String → статични, хомогенни, линейни; пряк достъп (по индекс).
+Обект Student  → нехомогенна структура; пряк достъп (по идентификатор).`,
+ facts:["Класификация по: тип на елементите, достъп, брой, свързаност.","Линейни: всеки елемент има един предшественик и наследник, освен първия и последния.","Нелинейни: йерархични (дървета), мрежови (графи), множество.","Масив и String: статични, хомогенни, линейни, с пряк достъп.","Динамичните структури растат по време на изпълнение."],
+ mistakes:["Смесване на „пряк“ и „последователен“ достъп.","Мислене, че всички структури са статични."]},
+
+{id:"linear",subj:"sda",title:"Линейни структури · стек · опашка",path:"6-Структури от данни (1)/6.2 · 6.5",
+ tasks:[
+  {q:"Изведи двоичното представяне на цяло положително число, използвайки стек.",
+   algo:"Многократно целочислено деление на 2; остатъците се добавят в стек (push). После се изваждат (pop) — принципът LIFO ги връща в правилен ред.",
+   sol:`Stack<Integer> st = new Stack<Integer>();
+while (n > 0) {
+    st.push(n % 2);
+    n /= 2;
+}
+while (!st.empty())
+    System.out.print(st.pop());
+// вход 19 -> изход 10011`},
+  {q:"Слей две опашки от клиенти в нова, като редуваш по един клиент от всяка.",
+   algo:"Докато и двете опашки имат клиенти — взимаме по един от всяка (poll) и ги добавяме в новата (offer). После прехвърляме остатъка от неизпразнената опашка.",
+   sol:`Queue<String> q3 = new LinkedList<String>();
+while (!q1.isEmpty() && !q2.isEmpty()) {
+    q3.offer(q1.poll());
+    q3.offer(q2.poll());
+}
+while (!q1.isEmpty()) q3.offer(q1.poll());
+while (!q2.isEmpty()) q3.offer(q2.poll());`}
+ ],
+ idea:"Линейните структури имат първи и последен елемент, а всеки друг — точно един предшественик и наследник. Динамичните им реализации са свързан списък (възли с връзка към следващ), стек (LIFO) и опашка (FIFO).",
+ syntax:`Стек (LIFO):   push (добавя), pop (маха от върха), peek (гледа върха)
+Опашка (FIFO): offer (добавя в края), poll (маха от началото), peek`,
+ exCap:"Разликата LIFO / FIFO.",
+ example:`Stack cars = new Stack();
+cars.push("Honda"); cars.push("Audi");
+cars.peek();   // Audi  (последният влязъл)
+
+Queue cars = new LinkedList();
+cars.offer("Honda"); cars.offer("Audi");
+cars.peek();   // Honda (първият влязъл)`,
+ facts:["Стек — LIFO (последен влязъл, първи излязъл): push, pop, peek.","Опашка — FIFO (първи влязъл, първи излязъл): offer, poll, peek.","Свързан списък: едносвързан (само следващ) или двусвързан (предходен и следващ).","Списък: бързо добавяне/изтриване, но без пряк достъп и повече памет.","Масив: пряк достъп, но по-трудно добавяне/изтриване."],
+ mistakes:["Бъркане на LIFO (стек) и FIFO (опашка).","Опит за пряк достъп по индекс в свързан списък.","pop / poll на празна структура."]},
+
+{id:"collections",subj:"sda",title:"Колекции · LinkedList / ArrayList",path:"6-Структури от данни (1)/6.3-Колекции в Java.pdf",
+ tasks:[
+  {q:"Въведи 10 имена в списък без дублиране, после ги подреди лексикографски.",
+   algo:"Преди add проверяваме с contains дали името вече го има; накрая сортираме с Collections.sort.",
+   sol:`LinkedList<String> names = new LinkedList<String>();
+for (int i = 0; i < 10; i++) {
+    String s = input.nextLine();
+    if (!names.contains(s)) names.add(s);
+}
+Collections.sort(names);
+System.out.println(names);`},
+  {q:"Въведи цели числа (край при 0) и запиши четните и нечетните в два отделни списъка.",
+   algo:"Цикъл до въвеждане на 0; според остатъка при деление на 2 добавяме числото в съответния списък.",
+   sol:`LinkedList<Integer> even = new LinkedList<Integer>();
+LinkedList<Integer> odd  = new LinkedList<Integer>();
+int x;
+while ((x = input.nextInt()) != 0) {
+    if (x % 2 == 0) even.add(x);
+    else            odd.add(x);
+}
+System.out.println("Четни:   " + even);
+System.out.println("Нечетни: " + odd);`}
+ ],
+ idea:"Колекциите (java.util) са класове за съхранение на набор от елементи с динамичен размер. List е интерфейс, а LinkedList (двусвързан списък) и ArrayList (динамичен масив) са негови реализации. Генеричните колекции задават типа на елементите в < >.",
+ syntax:`LinkedList<String> list = new LinkedList<String>();
+list.add("Cat");          // в края
+list.add(1, "Snake");     // на позиция
+list.remove("Cat");  list.remove(0);
+list.get(0);  list.size();  list.contains(x);
+Collections.sort(list);   // сортиране`,
+ exCap:"Основни операции със списък.",
+ example:`LinkedList<String> zoo = new LinkedList<String>();
+zoo.add("Cat"); zoo.add("Dog");
+System.out.println(zoo);        // [Cat, Dog]
+System.out.println(zoo.size()); // 2`,
+ facts:["List е интерфейс — не се инстанцира; реализации: LinkedList, ArrayList.","LinkedList — бързо добавяне/изтриване; ArrayList — бърз достъп по индекс.","За примитивни типове се ползват обвиващи класове (Integer, Double, Boolean).","Методи: add, remove, get, size, contains.","Сортиране: Collections.sort(list).","toArray прави масив от елементите на колекцията."],
+ mistakes:["Опит за инстанциране на List (интерфейс).","Списък от примитивен тип без обвиващ клас.","Извикване sort без името на класа: Collections.sort(list)."]},
+
+{id:"map",subj:"sda",title:"Речници · Map",path:"6-Структури от данни (1)/6.8-Интерфейс Map.pdf",
+ tasks:[
+  {q:"Въвеждат се думи на отделни редове. За всяка уникална дума изведи колко пъти е въведена.",
+   algo:"Речник HashMap<String,Integer>: ключ = думата, стойност = брой срещания. При ново срещане put(w,1); ако вече съществува — put(w, get(w)+1).",
+   sol:`HashMap<String,Integer> m = new HashMap<String,Integer>();
+while (sc.hasNextLine()) {
+    String w = sc.nextLine();
+    if (w.equals("")) break;
+    if (m.containsKey(w)) m.put(w, m.get(w) + 1);
+    else                  m.put(w, 1);
+}
+for (String k : m.keySet())
+    System.out.println(k + ": " + m.get(k));`}
+ ],
+ idea:"Map реализира речник — двойки (ключ, стойност) за бързо намиране на стойност по ключ. Генеричен е: Map<Key,Value>. Реализации: HashMap (без ред), LinkedHashMap (пази реда на въвеждане) и TreeMap (сортиран по ключ).",
+ syntax:`HashMap<String,Integer> m = new HashMap<String,Integer>();
+m.put(key, value);     // добавя/заменя
+m.get(key);            // стойност или null
+m.containsKey(key);
+m.remove(key);
+m.keySet();  m.values();  m.size();`,
+ exCap:"Броене на срещанията на думи.",
+ example:`if (map.containsKey(word))
+    map.put(word, map.get(word) + 1);
+else
+    map.put(word, 1);`,
+ facts:["Map пази двойки (ключ, стойност); ключът е уникален.","Най-често: get, put, remove.","get на несъществуващ ключ връща null.","HashMap — без ред; LinkedHashMap — пази реда на въвеждане; TreeMap — сортиран по ключ.","put с вече съществуващ ключ заменя старата стойност."],
+ mistakes:["Аритметика върху get, който може да върне null → NullPointerException.","Очакване на подреденост от HashMap.","Забравяне, че дублиран ключ заменя старата стойност."]},
+
+{id:"graphs",subj:"sda",title:"Графи",path:"7-Структури от данни (2)/7.1-Графи.pdf",
+ tasks:[
+  {q:"Построй матрица на съседство на неориентиран граф по въведени ребра.",
+   algo:"Четем брой върхове n и брой ребра. За всяко ребро (u, v) слагаме 1 на двете симетрични позиции g[u][v] и g[v][u] (защото графът е неориентиран).",
+   sol:`int[][] g = new int[n][n];
+for (int e = 0; e < edges; e++) {
+    int u = input.nextInt();
+    int v = input.nextInt();
+    g[u][v] = 1;
+    g[v][u] = 1;    // неориентиран -> симетрично
+}`}
+ ],
+ idea:"Граф G = (V, E) е наредена двойка от множество върхове V и множество ребра E; всяко ребро свързва два върха. Видовете са: ориентиран/неориентиран, претеглен/непретеглен, свързан. Представя се с матрица на съседство, матрица на инцидентност или списък на съседи.",
+ syntax:`G = (V, E)
+V = {v1, v2, v3, v4, v5}
+E = {{v1,v2},{v2,v3},{v2,v5},{v1,v4},{v4,v5}}
+
+Представяния: матрица на съседство | матрица на инцидентност | списък на съседи`,
+ exCap:"Път и свързаност.",
+ example:`Път:  V4, V1, V2, V5   (редица от върхове, свързани с ребра)
+Свързан граф: между всеки два върха има път.`,
+ facts:["Граф G=(V,E): върхове V и ребра E; всяко ребро свързва два върха.","Ориентиран (посока) / неориентиран; претеглен (тегло на ребро) / непретеглен.","Свързан граф: между всеки два върха има път.","Съседни върхове: между които има ребро.","Представяне: матрица на съседство, матрица на инцидентност, списък на съседи."],
+ mistakes:["Бъркане на ориентиран и неориентиран граф.","Мислене, че всеки граф е свързан.","Смесване на претеглен (тегло) с ориентиран (посока)."]},
+
+{id:"bfs",subj:"sda",title:"Обхождане в ширина (BFS)",path:"7-Структури от данни (2)/7.6-BFS.pdf",
+ tasks:[
+  {q:"Обходи неориентиран граф в ширина (BFS), започвайки от връх k, и изведи върховете.",
+   algo:"Опашка + масив used. Добавяме старта и го маркираме. Докато опашката не е празна: изваждаме връх, обработваме го и добавяме всичките му непосетени съседи (маркирайки ги при добавяне).",
+   sol:`Queue<Integer> q = new LinkedList<Integer>();
+boolean[] used = new boolean[n];
+q.offer(k);
+used[k] = true;
+while (!q.isEmpty()) {
+    int p = q.poll();
+    System.out.print(p + " ");
+    for (int j = 0; j < n; j++)
+        if (g[p][j] == 1 && !used[j]) {
+            q.offer(j);
+            used[j] = true;
+        }
+}`}
+ ],
+ idea:"BFS (Breadth-First-Search) обхожда всеки връх точно веднъж, „по нива“ — от началния връх първо всички преки съседи, после техните съседи. Използва опашка и масив used за посетените върхове.",
+ syntax:`BFS(i):
+  създаваме празна опашка Q; добавяме върха i
+  used[k]=0 за всички; used[i]=1
+  while (опашката не е празна):
+     p = първия от опашката; обработваме p; махаме го
+     for (всеки наследник j на p)
+        if (used[j]==0) { добавяме j в Q; used[j]=1; }`,
+ exCap:"Пример за тестване.",
+ example:`Вход:  8 върха, 10 ребра, старт от връх 1
+Изход: 1 2 3 0 4 5 7 6`,
+ facts:["BFS = обхождане в ширина (Breadth-First-Search).","Използва опашка (FIFO); обхожда „по нива“.","Масив used отбелязва посетените върхове.","Връх се маркира като посетен при добавяне в опашката.","Всеки връх се посещава точно веднъж."],
+ mistakes:["Липса на масив used → зацикляне и повторни посещения.","Използване на стек вместо опашка.","Маркиране на used при изваждане вместо при добавяне → дубликати в опашката."]},
+
+{id:"dfs",subj:"sda",title:"Обхождане в дълбочина (DFS)",path:"7-Структури от данни (2)/7.7-DFS.pdf",
+ tasks:[
+  {q:"Обходи граф в дълбочина (DFS) рекурсивно, започвайки от връх i.",
+   algo:"Маркираме i като посетен и го обработваме. После за всеки негов непосетен съсед k извикваме рекурсивно dfs(k). Масивът used предпазва от зацикляне.",
+   sol:`static void dfs(int i, int[][] g, boolean[] used, int n) {
+    used[i] = true;
+    System.out.print(i + " ");
+    for (int k = 0; k < n; k++)
+        if (g[i][k] == 1 && !used[k])
+            dfs(k, g, used, n);
+}`}
+ ],
+ idea:"DFS (Depth-First-Search) се „спуска“ възможно най-надълбоко, преди да се върне. Описва се най-лесно рекурсивно — маркираме върха и рекурсивно обхождаме всеки негов непосетен съсед. Основа е на метода „търсене с връщане“ (backtracking).",
+ syntax:`void DFS(int i, int[] used) {
+    used[i] = 1;
+    System.out.print(i + " ");
+    for (int k = 0; k < n; k++)
+        if (edges[i][k] && !used[k]) DFS(k, used);
+}`,
+ exCap:"Пример за тестване (същият граф като BFS).",
+ example:`Вход:  8 върха, 10 ребра, старт от връх 1
+Изход: 1 2 0 7 5 3 4 6`,
+ facts:["DFS = обхождане в дълбочина (Depth-First-Search).","Спуска се максимално надълбоко, после се връща назад.","Описва се най-лесно рекурсивно (или със стек).","Масив used предпазва от повторно посещение и зацикляне.","Основа на метода „търсене с връщане“ (backtracking).","Разлика с BFS: BFS обхожда по нива, DFS — надълбоко."],
+ mistakes:["Липса на маркиране used → безкрайна рекурсия при цикли в графа.","Бъркане на реда на BFS (по нива) с DFS (надълбоко)."]},
+
+{id:"exceptions",subj:"sda",title:"Изключения",path:"8-Изключения/8.1-Изключения - урок.pdf",
+ tasks:[
+  {q:"Въведи 3 числа — страни на триъгълник, и пресметни лицето, като прихванеш два вида грешки (не са числа / не образуват триъгълник). Накрая изведи „Програмата приключи.“",
+   algo:"В try четем числата и проверяваме триъгълниковото неравенство — при нарушение хвърляме ArithmeticException. Два catch блока (по-конкретните преди по-общите); finally винаги извежда финалното съобщение.",
+   sol:`try {
+    double a = Double.parseDouble(scan.nextLine());
+    double b = Double.parseDouble(scan.nextLine());
+    double c = Double.parseDouble(scan.nextLine());
+    if (a >= b + c || b >= a + c || c >= a + b)
+        throw new ArithmeticException("Няма такъв триъгълник.");
+    double p = (a + b + c) / 2;
+    System.out.println("S=" + Math.sqrt(p*(p-a)*(p-b)*(p-c)));
+} catch (NumberFormatException e) {
+    System.out.println("Не въведохте 3 числа.");
+} catch (ArithmeticException e) {
+    System.out.println(e.getMessage());
+} finally {
+    System.out.println("Програмата приключи.");
+}`},
+  {q:"Създай собствено изключение TriangleExc и го хвърли при невалиден триъгълник.",
+   algo:"Дефинираме клас, който наследява Exception и предефинира getMessage(). Хвърляме го с throw и го прихващаме в отделен catch.",
+   sol:`class TriangleExc extends Exception {
+    public String getMessage() { return "Няма такъв триъгълник."; }
+}
+// ...
+if (a >= b + c || b >= a + c || c >= a + b)
+    throw new TriangleExc();`}
+ ],
+ idea:"Изключенията са грешки по време на изпълнение (деление на 0, невалиден индекс, null, грешен формат). Прихващат се с try–catch–finally, хвърлят се с throw, а можем да създадем и собствено изключение — клас, който наследява Exception.",
+ syntax:`try { /* рисков код */ }
+catch (ExceptionType e) { /* обработка */ }
+finally { /* изпълнява се винаги */ }
+
+if (условие) throw new ExceptionType("текст");`,
+ exCap:"Пресмятане на лице на триъгълник с прихващане.",
+ example:`try {
+    double a = Double.parseDouble(scan.nextLine());
+    if (a >= b+c) throw new ArithmeticException("Няма такъв триъгълник.");
+} catch (NumberFormatException e) {
+    System.out.println("Не въведохте 3 числа.");
+} finally {
+    System.out.println("Програмата приключи.");
+}`,
+ facts:["try (рисков код) – catch (обработка) – finally (изпълнява се винаги).","finally не е задължителна, но се изпълнява дори при изключение.","throw new ExceptionType(\"текст\") хвърля изключение по преценка.","По-конкретните catch блокове идват преди по-общите.","Собствено изключение: клас, който наследява Exception.","Чести: ArithmeticException (÷0), ArrayIndexOutOfBounds, NullPointer, NumberFormat."],
+ mistakes:["Пропускане на finally, когато трябва да се затвори ресурс.","По-общ catch преди по-конкретен.","Собствено изключение, което не наследява Exception."]},
+
+{id:"files",subj:"sda",title:"Потоци и текстови файлове",path:"9-Работа с потоци и файлове/9.1-Урок.pdf",
+ tasks:[
+  {q:"Прочети текстов файл ред по ред и го изведи на конзолата с номерация на редовете.",
+   algo:"Свързваме обект File със Scanner, задавайки кодиране за кирилица. Цикъл while с hasNextLine() чете всеки ред; накрая затваряме потока с close().",
+   sol:`File f = new File("test.txt");
+Scanner in = new Scanner(f, "windows-1251");
+int line = 1;
+while (in.hasNextLine())
+    System.out.println((line++) + ": " + in.nextLine());
+in.close();`},
+  {q:"Запиши няколко реда текст в текстов файл.",
+   algo:"Използваме PrintStream, свързан с файла (с кодиране); пишем с println; задължително затваряме с close(), за да не се загубят данни.",
+   sol:`PrintStream out = new PrintStream("out.txt", "windows-1251");
+out.println("Здравей!");
+out.println("Втори ред.");
+out.close();`}
+ ],
+ idea:"Потокът (stream) е наредена последователност от байтове между програма и източник/устройство. Четенето от текстов файл става със Scanner, свързан с обект File; писането — с PrintStream. Потоците се отварят преди и се затварят след работа.",
+ syntax:`File f = new File("test.txt");
+Scanner reader = new Scanner(f, "windows-1251"); // кодиране за кирилица
+while (reader.hasNextLine()) {
+    String line = reader.nextLine();
+    ...
+}
+reader.close();`,
+ exCap:"Отваряне на текстов файл за четене.",
+ example:`File myFile = new File("test.txt");
+Scanner fileReader = new Scanner(myFile, "windows-1251");
+// четене ред по ред ...
+fileReader.close();`,
+ facts:["Поток (stream) — наредена последователност от байтове между програма и източник.","Четене на текстов файл: Scanner + обект File; писане: PrintStream.","Кодиране \"windows-1251\" — за правилно четене на кирилица.","hasNextLine() проверява за следващ ред; close() затваря потока.","Препоръчва се релативен път — за преносимост между компютри.","В път наклонената черта се удвоява: \"C:\\\\Temp\\\\test.txt\"."],
+ mistakes:["Незатваряне на потока → загуба на данни / повреден файл.","Липса на кодиране → развалена кирилица.","Абсолютен вместо релативен път.","Необработено изключение при свързване на Scanner с файл."]}
+];
+
+const SUBJ={java:{label:"ООПП с Java",short:"Java"},sda:{label:"Структури от данни и алгоритми",short:"СДА"}};
+const KW=new Set("public private protected static final abstract class interface extends implements new return if else for while do switch case break default import this super void true false null package".split(" "));
+const TY=new Set("int double long char boolean String Scanner StringBuilder StringBuffer Stack Queue LinkedList ArrayList HashMap TreeMap Map List File PrintStream Exception ArithmeticException NumberFormatException NullPointerException Arrays Integer Double Boolean".split(" "));
+
+const content=document.getElementById('content');
+const nav=document.getElementById('nav');
+const app=document.getElementById('app');
+let current=null, filter='';
+
+const SKEY='pregovor11_theme';
+try{const th=localStorage.getItem(SKEY);if(th)document.documentElement.setAttribute('data-theme',th);}catch(e){}
+
+function esc(t){const d=document.createElement('div');d.textContent=t;return d.innerHTML;}
+function hlLine(src){
+  let code=src,com='';const ci=src.indexOf('//');
+  if(ci>=0){code=src.slice(0,ci);com=src.slice(ci);}
+  const re=/("(?:[^"\\]|\\.)*")|('(?:[^'\\]|\\.)*')|(\b\d+\.?\d*\b)|([A-Za-z_][A-Za-z0-9_]*)/g;
+  let out='',last=0,m;
+  while((m=re.exec(code))!==null){
+    out+=esc(code.slice(last,m.index));
+    if(m[1]||m[2])out+='<span class="c-str">'+esc(m[0])+'</span>';
+    else if(m[3])out+='<span class="c-num">'+esc(m[0])+'</span>';
+    else if(m[4]){if(KW.has(m[4]))out+='<span class="c-kw">'+m[4]+'</span>';
+      else if(TY.has(m[4]))out+='<span class="c-ty">'+m[4]+'</span>';else out+=esc(m[4]);}
+    last=re.lastIndex;
+  }
+  out+=esc(code.slice(last));
+  if(com)out+='<span class="c-com">'+esc(com)+'</span>';
+  return out;
+}
+function codeHTML(code){
+  const lines=code.split('\n');const w=String(lines.length).length;
+  return '<pre class="code"><code>'+lines.map((l,i)=>'<span class="ln">'+String(i+1).padStart(w,' ')+'</span>  '+hlLine(l)).join('\n')+'</code></pre>';
+}
+function inl(s){return s.split('`').map((p,i)=>i%2?'<code class="inl">'+esc(p)+'</code>':esc(p)).join('');}
+
+function buildNav(){
+  nav.innerHTML='';
+  ['java','sda'].forEach(sj=>{
+    const items=TOPICS.filter(t=>t.subj===sj && (!filter || t.title.toLowerCase().includes(filter)));
+    if(!items.length)return;
+    const g=document.createElement('div');g.className='glabel g-'+sj;
+    g.innerHTML='<span class="bar"></span>'+SUBJ[sj].short;nav.appendChild(g);
+    items.forEach(t=>{
+      const idx=TOPICS.indexOf(t)+1;
+      const b=document.createElement('button');
+      b.className='leaf'+(current===t.id?' on'+(sj==='java'?' j':''):'');
+      b.innerHTML='<span class="n">'+String(idx).padStart(2,'0')+'</span><span>'+esc(t.title)+'</span>';
+      b.onclick=()=>{selectTopic(t.id);closeDrawer();};nav.appendChild(b);
+    });
+  });
+}
+function selectTopic(id){current=id;buildNav();renderTopic();window.scrollTo(0,0);}
+
+function renderHome(){
+  current=null;buildNav();
+  const jc=TOPICS.filter(t=>t.subj==='java').length, sc=TOPICS.filter(t=>t.subj==='sda').length;
+  content.innerHTML=`
+   <div class="home">
+    <span class="kicker">Бърз преговор</span>
+    <h2>Информатика за 11. клас, <span class="hl">подредена и лесна</span></h2>
+    <p class="lead">Избери тема отляво и виж най-важното на едно място: идея, синтаксис, пример, ключови факти за запомняне и типичните грешки.</p>
+    <div class="subs">
+      <div class="subcard j">
+        <h3>ООПП с Java</h3>
+        <p>Условни и циклични конструкции, методи, масиви, класове, наследяване, интерфейси.</p>
+        <div class="cnt">${jc} теми</div>
+        <div class="go"><span class="pill">цикли</span><span class="pill">методи</span><span class="pill">наследяване</span><span class="pill">интерфейси</span></div>
+      </div>
+      <div class="subcard s">
+        <h3>Структури от данни</h3>
+        <p>Сортиране, търсене, низове, рекурсия, списъци, речници, графи, изключения, файлове.</p>
+        <div class="cnt">${sc} теми</div>
+        <div class="go"><span class="pill">сортиране</span><span class="pill">рекурсия</span><span class="pill">графи</span><span class="pill">Map</span></div>
+      </div>
+    </div>
+    <div class="note">Всяка тема е кратка и по същество — за <b>бързо припомняне</b>, не за учене от нулата. Отдолу на всяка тема стои и <b>пътят до оригиналния файл</b>.</div>
+   </div>`;
+}
+
+function sec(kind,label,icon,inner){
+  return '<div class="sec sec--'+kind+'"><div class="lbl"><span class="ic">'+icon+'</span>'+label+'</div><div class="in">'+inner+'</div></div>';
+}
+function renderTopic(){
+  const t=TOPICS.find(x=>x.id===current);const sj=t.subj;
+  let h='<div class="thead">'+
+    '<span class="chip '+(sj==='java'?'j':'s')+'"><span class="d"></span>'+esc(SUBJ[sj].label)+'</span>'+
+    '<h2>'+esc(t.title)+'</h2></div>';
+  h+=sec('idea','Идея','i','<p class="idea-txt">'+esc(t.idea)+'</p>');
+  h+=sec('syntax',t.syntaxLabel||'Синтаксис','&lt;&gt;',codeHTML(t.syntax));
+  h+=sec('example',t.exampleLabel||'Пример','▹',(t.exCap?'<p class="excap">'+esc(t.exCap)+'</p>':'')+codeHTML(t.example));
+  h+=sec('facts','Запомни','★','<ul class="facts">'+t.facts.map(f=>'<li>'+inl(f)+'</li>').join('')+'</ul>');
+  h+=sec('mist','Чести грешки','!','<ul class="mist">'+t.mistakes.map(m=>'<li>'+inl(m)+'</li>').join('')+'</ul>');
+  if(t.tasks && t.tasks.length){
+    const ti=t.tasks.map((tk,i)=>'<div class="task"><span class="tnum">Задача '+(i+1)+'</span>'+
+      '<p class="tq">'+inl(tk.q)+'</p>'+
+      '<div class="tlabel algo">Алгоритъм</div><p class="algo-txt">'+esc(tk.algo)+'</p>'+
+      '<div class="tlabel sol">Решение</div><pre class="sol">'+esc(tk.sol)+'</pre></div>').join('');
+    h+=sec('task','Решени задачи','Σ',ti);
+  }
+  h+='<div style="margin-top:22px"><span class="fileref">'+esc(t.path)+'</span></div>';
+  content.innerHTML=h;
+}
+
+function closeDrawer(){app.classList.remove('open');}
+document.getElementById('menuBtn').onclick=()=>app.classList.toggle('open');
+document.getElementById('backdrop').onclick=closeDrawer;
+document.getElementById('search').addEventListener('input',e=>{filter=e.target.value.toLowerCase().trim();buildNav();});
+document.getElementById('themeBtn').onclick=()=>{
+  const cur=document.documentElement.getAttribute('data-theme');
+  const dark=cur?cur==='dark':window.matchMedia('(prefers-color-scheme:dark)').matches;
+  const next=dark?'light':'dark';
+  document.documentElement.setAttribute('data-theme',next);
+  try{localStorage.setItem(SKEY,next);}catch(e){}
+};
+
+renderHome();
+</script>
+
+</body>
+</html>
