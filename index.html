@@ -1194,6 +1194,63 @@ class Pig implements Animal {
  facts:["implements — клас реализира интерфейс (за разлика от extends).","Методите по подразбиране са public abstract (без тяло); с тяло — default.","Данните са public static final (константи).","Един клас може да реализира няколко интерфейса (разделени със запетая).","Интерфейсът не се инстанцира и няма конструктор."],
  mistakes:["Опит за инстанциране на интерфейс.","extends вместо implements при клас.","Забравен public пред имплементираните методи."]},
 
+{id:"gui",subj:"java",title:"Графичен интерфейс (ГПИ)",path:"07-Графичен потребителски интерфейс/7.01-GrInt.pdf",
+ idea:"Графичният потребителски интерфейс (ГПИ) е набор от интерактивни графични обекти. Основните компоненти са контейнери (форма/прозорец и панел) и контроли (етикет, текстово поле, бутон), които се разполагат във формата.",
+ syntaxLabel:"Компоненти",
+ syntax:`Контейнери:
+  JFrame  — прозорец (форма); основен контейнер на приложението
+  JPanel  (pnl) — панел за групиране на контроли; основа за графика
+
+Контроли:
+  JLabel     (lbl) — етикет за едноредов текст
+  JTextField (txt) — поле за въвеждане/извеждане на текст
+  JButton    (btn) — бутон, който предизвиква действие
+
+// работа с текст:
+txtName.getText();          // прочита текста
+lblResult.setText("...");   // задава текста`,
+ exCap:"Прочитане от поле и извеждане в етикет.",
+ example:`String name = txtName.getText();
+lblResult.setText("Здравей, " + name + "!");`,
+ facts:["Контейнери: JFrame (прозорец/форма) и JPanel (панел). Формата е основният контейнер.","Основни контроли: JLabel (етикет), JTextField (текстово поле), JButton (бутон).","Приети префикси за имена: pnl (панел), lbl (етикет), txt (поле), btn (бутон).","getText() чете текста на контрола; setText(...) задава текст.","Важни свойства на формата: заглавие (title), размер и разположение на елементите (Layout / Absolute)."],
+ mistakes:["Бъркане на контейнер (JPanel/JFrame) с контрола (JButton/JLabel).","Забравено четене/задаване на текст с getText()/setText()."],
+ tasks:[
+  {q:"По име, въведено в текстово поле txtName, изведи поздрав в етикет lblOut при натискане на бутон.",
+   algo:"В обработчика на бутона четем текста с getText(), съставяме поздрава и го задаваме в етикета с setText().",
+   sol:`String name = txtName.getText();
+lblOut.setText("Здравей, " + name + "!");`}
+ ]},
+{id:"graphics",subj:"java",title:"Графика и събития",path:"11-Графика, събития/11.2-Проект-графика.pdf",
+ idea:"В панел можем да чертаем графични примитиви чрез обект от клас Graphics, получен с getGraphics(). Координатната система започва от горния ляв ъгъл (0,0); x расте надясно, y — надолу. Приложението реагира на действия на потребителя чрез събития (натискане на бутон, кликване с мишката).",
+ syntaxLabel:"Графични примитиви",
+ syntax:`import java.awt.Graphics;
+Graphics g = pnlCanvas.getGraphics();
+
+g.setColor(Color.ORANGE);           // или new Color(r,g,b), 0..255
+g.drawLine(x1, y1, x2, y2);         // отсечка
+g.drawRect(x, y, w, h);             // правоъгълник (контур)
+g.fillRect(x, y, w, h);             // запълнен правоъгълник
+g.drawOval(x, y, w, h);             // елипса (окръжност при w==h)
+g.fillOval(x, y, w, h);
+g.drawArc(x, y, w, h, start, angle);// дъга
+
+pnlCanvas.repaint();                // изчистване на панела`,
+ exCap:"Чертане на отсечка и запълнен кръг.",
+ example:`Graphics g = pnlCanvas.getGraphics();
+g.setColor(Color.RED);
+g.drawLine(0, 0, 50, 50);
+g.fillOval(60, 20, 40, 40);   // окръжност (равни ширина и височина)`,
+ facts:["Обект за чертане: Graphics g = panel.getGraphics(); нужен е import java.awt.Graphics.","Координатите започват от горния ляв ъгъл (0,0); x надясно, y надолу.","Примитиви: drawLine, drawRect/fillRect, drawOval/fillOval, drawArc/fillArc, drawPolygon/fillPolygon.","Окръжност се получава от drawOval/fillOval при равни ширина и височина.","Цвят: setColor(Color.ORANGE) или new Color(r,g,b) със стойности 0–255 (червено, зелено, синьо).","Изчистване на панела: panel.repaint(). Приложението реагира на действия чрез събития."],
+ mistakes:["Бъркане на draw (само контур) с fill (запълнена фигура).","Забравен import java.awt.Graphics / java.awt.Color.","Очакване (0,0) да е долу-ляво — то е горе-ляво, а y расте надолу."],
+ tasks:[
+  {q:"Начертай запълнен правоъгълник и окръжност в панел pnlCanvas.",
+   algo:"Взимаме Graphics с getGraphics(), задаваме цвят и извикваме fillRect и fillOval с координати на горния ляв ъгъл.",
+   sol:`Graphics g = pnlCanvas.getGraphics();
+g.setColor(Color.BLUE);
+g.fillRect(10, 10, 100, 60);   // правоъгълник
+g.setColor(Color.GREEN);
+g.fillOval(120, 10, 50, 50);   // окръжност`}
+ ]},
 {id:"sorting",subj:"sda",title:"Сортиране (селекция и мехурче)",path:"1-Едномерен масив/1.02.1 · 1.02.2",
  tasks:[
   {q:"Сортирай числов масив във възходящ ред с метода на мехурчето (реализация в Java).",
@@ -1839,7 +1896,7 @@ fileReader.close();`,
 
 const SUBJ={java:{label:"ООПП с Java",short:"Java"},sda:{label:"Структури от данни и алгоритми",short:"СДА"}};
 const KW=new Set("public private protected static final abstract class interface extends implements new return if else for while do switch case break default import this super void true false null package".split(" "));
-const TY=new Set("int double long char boolean String Scanner StringBuilder StringBuffer Stack Queue LinkedList ArrayList HashMap TreeMap Map List File PrintStream Exception ArithmeticException NumberFormatException NullPointerException Arrays Integer Double Boolean Math HashSet TreeSet LinkedHashSet Set Comparator Object byte short float".split(" "));
+const TY=new Set("int double long char boolean String Scanner StringBuilder StringBuffer Stack Queue LinkedList ArrayList HashMap TreeMap Map List File PrintStream Exception ArithmeticException NumberFormatException NullPointerException Arrays Integer Double Boolean Math HashSet TreeSet LinkedHashSet Set Comparator Object byte short float Graphics Color JFrame JPanel JLabel JTextField JButton".split(" "));
 
 const content=document.getElementById('content');
 const nav=document.getElementById('nav');
